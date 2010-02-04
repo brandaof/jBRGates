@@ -278,6 +278,24 @@ class JSONParsing implements JSONConstants{
             throwJSON( "expected at position $lin : 0-9", null );
     }
 
+    void hexDigits(  StringBuffer number, int minLength ) throws IOException{
+        int oldLength = number.length();
+
+        Character value = Character.toLowerCase( next(false) );
+        while( value != null && 
+               HEX.indexOf( String.valueOf( value ) ) != -1 &&
+               ( number.length() - oldLength ) < minLength ){
+            number.append( value );
+            value = Character.toLowerCase( next(false) );
+        }
+        back();
+
+        
+        if( ( number.length() - oldLength ) < minLength )
+            throwJSON( "expected at position $lin : 0-f", null );
+        
+    }
+
     Object bool() throws IOException{
         Character value = Character.toLowerCase( next(true) );
         StringBuffer result = new StringBuffer();
@@ -359,7 +377,44 @@ class JSONParsing implements JSONConstants{
             v = next(false);
             //bug '\uffff'
             while( v != null && v != QUOTE_STR ){
-                result.append( v );
+                
+                if( v == '\\' ){
+                    v = next(false);
+
+                    switch( v ){
+                        case 'u':
+                            StringBuffer hex = new StringBuffer();
+                            hexDigits(hex, 4);
+                            result.append( (char)Integer.parseInt(hex.toString(), 16 ) );
+                            break;
+                        case '\"':
+                        case '\\':
+                        case '/':
+                            result.append( v );
+                            break;
+                        case 'b':
+                            result.append( '\b' );
+                            break;
+                        case 't':
+                            result.append( '\t' );
+                            break;
+                        case 'n':
+                            result.append( '\n' );
+                            break;
+                        case 'f':
+                            result.append( '\f' );
+                            break;
+                        case 'r':
+                            result.append('\r');
+                            break;
+                        default:
+                            throwJSON( "expected at position " +
+                            "$lin : \\u, \\b, \\t, \\n, \\f or \\r", null );return null;
+                    }
+                }
+                else
+                    result.append( v );
+                
                 v = next(false);
             }
 

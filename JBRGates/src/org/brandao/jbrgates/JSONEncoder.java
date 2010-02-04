@@ -132,10 +132,13 @@ public class JSONEncoder  implements JSONConstants{
         }
         else
         if( clazz == String.class )
+            string( obj );
+            /*
             innerWrite(
                     (new StringBuffer( QUOTE ))
                         .append( String.valueOf( obj ) )
                         .append( QUOTE ) );
+             */
         else
         if( MappingBean.isStandardProperty( clazz ) )
             innerWrite( 
@@ -254,6 +257,49 @@ public class JSONEncoder  implements JSONConstants{
 
     private void enumEncoder( Object obj ) throws IOException{
         encoderObject0( Integer.class, ((Enum)obj).ordinal() );
+    }
+
+    private void string( Object obj ) throws IOException{
+        String tmp = String.valueOf( obj );
+        StringBuffer buf = new StringBuffer();
+        innerWrite( QUOTE );
+        for( int i=0;i<tmp.length();i++ ) {
+            char ch = tmp.charAt( i );
+            switch (ch) {
+            case '\\':
+            case '"':
+            case '/':
+                buf.append( '\\' );
+                buf.append(ch);
+                break;
+            case '\b':
+                buf.append("\\b");
+                break;
+            case '\t':
+                buf.append("\\t");
+                break;
+            case '\n':
+                buf.append("\\n");
+                break;
+            case '\f':
+                buf.append("\\f");
+                break;
+            case '\r':
+                buf.append("\\r");
+                break;
+            default:
+                if( Character.isUnicodeIdentifierPart( tmp.codePointAt( i ) ) )
+                    buf.append( tmp.charAt( i ) );
+                else{
+                    String hex = "000" + Integer.toHexString( ch );
+                    buf.append( "\\u")
+                            .append( hex.substring( hex.length() - 4 , hex.length() ) );
+                }
+            }
+        }
+
+        innerWrite( buf );
+        innerWrite( QUOTE );
     }
 
     private void innerWrite( StringBuffer value ) throws IOException{

@@ -23,6 +23,7 @@ package org.brandao.jbrgates;
  */
 interface JSONConstants {
 
+    public static final StringBuffer HEX          = new StringBuffer( "0123456789abcdef" );
     public static final StringBuffer START_OBJECT = new StringBuffer("{ ");
     public static final StringBuffer END_OBJECT   = new StringBuffer(" }");
     public static final StringBuffer SEPARATOR    = new StringBuffer(", ");

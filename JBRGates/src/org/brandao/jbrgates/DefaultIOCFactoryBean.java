@@ -28,7 +28,7 @@ import java.util.Set;
  *
  * @author Afonso Brandao
  */
-class DefaultIOCFactoryBean implements IOCFactoryBean{
+class DefaultIOCFactoryBean implements FactoryBean{
 
     public <T> T getInstance( Class<T> type ){
         try{

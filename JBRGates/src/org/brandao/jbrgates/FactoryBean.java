@@ -18,12 +18,12 @@
 package org.brandao.jbrgates;
 
 /**
- * Class used to get an instance of an
+ * Interface used to get an instance of an
  * object within a container IOC.
  *
  * @author Afonso Brandao
  */
-public interface IOCFactoryBean {
+public interface FactoryBean {
 
     /**
      * Gets a new instance.

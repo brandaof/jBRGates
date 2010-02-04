@@ -64,7 +64,7 @@ import java.util.Set;
 public class JSONDecoder implements JSONConstants{
 
     private InputStream in;
-    private IOCFactoryBean factory;
+    private FactoryBean factory;
 
     /**
      * Creates a default decoder.
@@ -88,7 +88,7 @@ public class JSONDecoder implements JSONConstants{
      * @param in Input stream
      * @param factoryBean Bean factory.
      */
-    public JSONDecoder( InputStream in, IOCFactoryBean factoryBean ){
+    public JSONDecoder( InputStream in, FactoryBean factoryBean ){
         this.in = in;
         this.factory = factoryBean;
     }

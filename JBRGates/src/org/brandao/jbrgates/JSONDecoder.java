@@ -114,6 +114,9 @@ public class JSONDecoder implements JSONConstants{
             JSONParsing parsing = new JSONParsing( in );
             return (T) decoder0( parsing.object( type ), type );
         }
+        catch( JSONException e ){
+            throw e;
+        }
         catch( Exception e ){
             throw new JSONException( e );
         }

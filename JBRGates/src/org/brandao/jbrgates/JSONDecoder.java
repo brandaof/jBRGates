@@ -237,13 +237,17 @@ public class JSONDecoder implements JSONConstants{
 
     private Object toValue( String value, Type type ){
         try{
+            Class wrapper = ClassType.getWrapper( (Class)type );
             if( value == null )
                 return null;
             else
             if( type == null || type == String.class || type == Object.class )
                 return value;
             else
-                return ClassType.getWrapper( (Class)type )
+            if( Character.class == wrapper )
+                return value.charAt(0);
+            else
+                return wrapper
                     .getMethod( "valueOf" , String.class )
                         .invoke( type , value);
         }

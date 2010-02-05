@@ -192,7 +192,7 @@ class MappingBean {
             clazz.isAssignableFrom(Integer.class)   ||
             clazz.isAssignableFrom(String.class)    ||
             clazz.isAssignableFrom(Double.class)    ||
-            clazz.isAssignableFrom(Character.class) ||
+            //clazz.isAssignableFrom(Character.class) ||
             clazz.isAssignableFrom(Boolean.class);
     }
 

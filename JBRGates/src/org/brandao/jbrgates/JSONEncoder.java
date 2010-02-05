@@ -140,6 +140,10 @@ public class JSONEncoder  implements JSONConstants{
                         .append( QUOTE ) );
              */
         else
+        if( Character.class == ClassType.getWrapper( clazz ) ){
+            string( String.valueOf(obj) );
+        }
+        else
         if( MappingBean.isStandardProperty( clazz ) )
             innerWrite( 
                     new StringBuffer(

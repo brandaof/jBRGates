@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -77,6 +78,10 @@ public class JSONEncoder  implements JSONConstants{
      * @param out Output stream.
      */
     public JSONEncoder( OutputStream out ){
+
+        if( out == null )
+            throw new NullPointerException();
+        
         this.out   = out;
         this.cache = new HashMap<Object,StringBuffer>();
     }
@@ -110,7 +115,7 @@ public class JSONEncoder  implements JSONConstants{
     
     private void encoderObject( Object obj, Class clazz ) throws IOException{
         if( obj == null )
-            return;
+            return ;
         else
         if( obj instanceof Serializable ){
             encoderObject0( clazz == null? obj.getClass() : clazz, obj );
@@ -141,7 +146,10 @@ public class JSONEncoder  implements JSONConstants{
              */
         else
         if( Character.class == ClassType.getWrapper( clazz ) ){
-            string( String.valueOf(obj) );
+            if( obj.equals( '\u0000' ) )
+                string( "" );
+            else
+                string( String.valueOf(obj) );
         }
         else
         if( MappingBean.isStandardProperty( clazz ) )
@@ -149,10 +157,15 @@ public class JSONEncoder  implements JSONConstants{
                     new StringBuffer(
                         String.valueOf( obj ) ) );
         else
-        if( clazz == Date.class )
+        if( Date.class.isAssignableFrom(clazz) )
             innerWrite(
                     new StringBuffer(
                         String.valueOf( ((Date)obj).getTime() ) ) );
+        else
+        if( Calendar.class.isAssignableFrom(clazz) )
+            innerWrite(
+                    new StringBuffer(
+                        String.valueOf( ((Calendar)obj).getTime() ) ) );
         else
         if( obj instanceof Collection )
             collectionEncoder( (Collection)obj );
@@ -173,8 +186,9 @@ public class JSONEncoder  implements JSONConstants{
 
     private void encoderObject1( Object obj, Class clazz ) throws IOException{
         if( cache.containsKey( obj ) ){
-            StringBuffer s = cache.get( obj );
-            innerWrite( s.length() == 0? NULL : s );
+            //StringBuffer s = cache.get( obj );
+            //innerWrite( s.length() == 0? NULL : s );
+            innerWrite( NULL );
         }
         else{
             cache.put( obj, buffer );
@@ -292,7 +306,7 @@ public class JSONEncoder  implements JSONConstants{
                 buf.append("\\r");
                 break;
             default:
-                if( Character.isUnicodeIdentifierPart( tmp.codePointAt( i ) ) )
+                if( ch == ' ' || Character.isUnicodeIdentifierPart( tmp.codePointAt( i ) ) )
                     buf.append( tmp.charAt( i ) );
                 else{
                     String hex = "000" + Integer.toHexString( ch );

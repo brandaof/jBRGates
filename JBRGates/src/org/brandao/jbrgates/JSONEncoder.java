@@ -163,11 +163,11 @@ public class JSONEncoder  implements JSONConstants{
         if( obj instanceof Map )
             mapEncoder( (Map<Object,Object>)obj );
         else
-            encoderObject1( obj );
+            encoderObject1( obj, clazz );
 
     }
 
-    private void encoderObject1( Object obj ) throws IOException{
+    private void encoderObject1( Object obj, Class clazz ) throws IOException{
         if( cache.containsKey( obj ) ){
             StringBuffer s = cache.get( obj );
             innerWrite( s.length() == 0? NULL : s );
@@ -177,7 +177,7 @@ public class JSONEncoder  implements JSONConstants{
             StringBuffer old = this.buffer;
             this.buffer = new StringBuffer();
             innerWrite( START_OBJECT );
-            MappingBean mapping = MappingBean.getMapping( obj.getClass() );
+            MappingBean mapping = MappingBean.getMapping( clazz );
             encoderFields( mapping.getMethods().values(), obj );
             innerWrite( END_OBJECT );
 

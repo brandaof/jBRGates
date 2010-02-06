@@ -84,9 +84,14 @@ public class JSONDecoderStringTest extends TestCase implements Test{
         assertEquals( "/", jse.decode() );
     }
 
-    public void testSolidusMore() throws IOException{
+    public void testUniqueSolidus() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"/\"" );
         assertEquals( "/", jse.decode() );
+    }
+
+    public void testUniqueSolidusMore() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "\"c:/kk/nn\"" );
+        assertEquals( "c:/kk/nn", jse.decode() );
     }
 
     public void testBackspace() throws IOException{

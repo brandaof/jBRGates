@@ -138,6 +138,17 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         fail( "expected NullPointerException" );
     }
 
+    public void testInvalidObject() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "objectName" );
+           jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
     public void testClassString() throws IOException{
         JSONDecoder jse = new JSONDecoder(String.format( "\"%s\"" , Integer.class.getName() )  );
         assertEquals( Integer.class.getName(), jse.decode() );

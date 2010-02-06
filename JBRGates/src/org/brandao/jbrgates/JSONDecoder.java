@@ -92,6 +92,13 @@ public class JSONDecoder implements JSONConstants{
     public JSONDecoder( InputStream in, FactoryBean factoryBean ){
         this.in = in;
         this.factory = factoryBean;
+
+        if( in == null )
+            throw new NullPointerException( "input stream" );
+
+        if( factory == null )
+            throw new NullPointerException( "bean factory" );
+
     }
 
     /**

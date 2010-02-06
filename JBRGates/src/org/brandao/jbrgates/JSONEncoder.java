@@ -165,7 +165,7 @@ public class JSONEncoder  implements JSONConstants{
         if( Calendar.class.isAssignableFrom(clazz) )
             innerWrite(
                     new StringBuffer(
-                        String.valueOf( ((Calendar)obj).getTime() ) ) );
+                        String.valueOf( ((Calendar)obj).getTime().getTime() ) ) );
         else
         if( obj instanceof Collection )
             collectionEncoder( (Collection)obj );

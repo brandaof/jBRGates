@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -128,17 +129,21 @@ public class JSONDecoder implements JSONConstants{
             return array( (List<Object>)data, clazz );
         }
         else
-        if( clazz != null && Date.class.isAssignableFrom( clazzType ) ){
-            return objectDate( data, clazzType );
+        if( clazz != null ){
+            if( Date.class.isAssignableFrom( clazzType ) )
+                return objectDate( data, clazzType );
+            else
+            if( Calendar.class.isAssignableFrom( clazzType ) )
+                return objectDate( data, clazzType );
+            else
+            if( clazzType != Object.class && clazzType.isAssignableFrom( Map.class ) )
+                return getMap( (Map)data, clazz );
+            else
+            if( clazzType.isEnum() )
+                return objectEnum( data, clazzType );
         }
-        else
-        if( clazz != null && clazzType != Object.class && clazzType.isAssignableFrom( Map.class ) ){
-            return getMap( (Map)data, clazz );
-        }
-        if( clazz != null && clazzType.isEnum() )
-            return objectEnum( data, clazzType );
-        else
-            return getObject( data, clazz );
+
+        return getObject( data, clazz );
 
     }
 
@@ -148,9 +153,20 @@ public class JSONDecoder implements JSONConstants{
     }
 
     private Object objectDate( Object data, Class clazz ){
-        Date dta = (Date) factory.getInstance( clazz );
-        dta.setTime( (Long)toValue( (String)data, Long.class ) );
-        return dta;
+        if( Date.class.isAssignableFrom( clazz ) ){
+            Date dta = (Date) factory.getInstance( clazz );
+            dta.setTime( (Long)toValue( (String)data, Long.class ) );
+            return dta;
+        }
+        else
+        if( Calendar.class.isAssignableFrom( clazz ) ){
+            long time = (Long)toValue( (String)data, Long.class );
+            Calendar dta = (Calendar) factory.getInstance( clazz );
+            dta.setTime( new Date( time ) );
+            return dta;
+        }
+        else
+            throw new JSONException( "invalid date" );
     }
 
     private Object array( List<Object> data, Type type ) throws Exception{
@@ -245,7 +261,7 @@ public class JSONDecoder implements JSONConstants{
                 return value;
             else
             if( Character.class == wrapper )
-                return value.charAt(0);
+                return value.length() == 0? null : value.charAt(0);
             else
                 return wrapper
                     .getMethod( "valueOf" , String.class )

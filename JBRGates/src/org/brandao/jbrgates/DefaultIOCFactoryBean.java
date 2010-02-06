@@ -17,6 +17,11 @@
 
 package org.brandao.jbrgates;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -40,6 +45,15 @@ class DefaultIOCFactoryBean implements FactoryBean{
             else
             if( type == List.class )
                 return (T) new LinkedList();
+            else
+            if( type == Time.class )
+                return (T) new Time( (new Date()).getTime() );
+            else
+            if( type == Timestamp.class )
+                return (T) new Timestamp( (new Date()).getTime() );
+            else
+            if( type == Calendar.class )
+                return (T) new GregorianCalendar();
             else
                 return type.newInstance();
         }

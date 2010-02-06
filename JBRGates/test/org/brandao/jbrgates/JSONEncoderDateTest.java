@@ -62,7 +62,7 @@ public class JSONEncoderDateTest extends TestCase implements Test{
         JSONEncoder jse = new JSONEncoder();
         Calendar cal = new GregorianCalendar();
         jse.encode( cal );
-        assertEquals( jse.toString(), String.valueOf( cal.getTime() ) );
+        assertEquals( jse.toString(), String.valueOf( cal.getTime().getTime() ) );
     }
 
 }

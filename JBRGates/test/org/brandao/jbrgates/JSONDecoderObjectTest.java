@@ -138,9 +138,14 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         fail( "expected NullPointerException" );
     }
 
-    public void testClass() throws IOException{
+    public void testClassString() throws IOException{
         JSONDecoder jse = new JSONDecoder(String.format( "\"%s\"" , Integer.class.getName() )  );
         assertEquals( Integer.class.getName(), jse.decode() );
+    }
+
+    public void testClass() throws IOException{
+        JSONDecoder jse = new JSONDecoder(String.format( "\"%s\"" , Integer.class.getName() )  );
+        assertEquals( Integer.class, jse.decode( Class.class ) );
     }
 
     public void testObjectError() throws IOException{
@@ -221,4 +226,32 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         assertEquals( origin, origin.getF() );
         assertEquals( result.getV(), 200 );
     }
+
+    public void testSemIdentificacaoException() throws IOException{
+        try{
+            JSONDecoder jsd = new JSONDecoder(
+                "{ \"v\" : 200, " +
+                "\"f\" : null }"
+            );
+            jsd.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testSemIdentificacao() throws IOException{
+        JSONDecoder jsd = new JSONDecoder(
+            "{ \"v\" : 200, " +
+            "\"f\" : null }"
+        );
+
+        Test4 origin = new Test4();
+        Test4 result = jsd.decode( Test4.class );
+        assertNotNull( result );
+        assertEquals( origin, origin.getF() );
+        assertEquals( result.getV(), 200 );
+    }
+
 }

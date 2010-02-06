@@ -267,6 +267,9 @@ public class JSONDecoder implements JSONConstants{
             if( type == null || type == String.class || type == Object.class )
                 return value;
             else
+            if( type == Class.class )
+                return Class.forName( value );
+            else
             if( Character.class == wrapper )
                 return value.length() == 0? null : value.charAt(0);
             else

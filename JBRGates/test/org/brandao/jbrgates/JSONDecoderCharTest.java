@@ -32,20 +32,10 @@ public class JSONDecoderCharTest extends TestCase implements Test{
         super();
     }
 
-    public void testCharUnicodeString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"A\"" );
-        assertEquals( "A", jse.decode() );
-    }
-
     public void testCharUnicode() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"A\"" );
         char result = jse.decode( char.class );
         assertEquals( 'A', result );
-    }
-
-    public void testCharString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\uffff\"" );
-        assertEquals( "\uffff", jse.decode() );
     }
 
     public void testChar() throws IOException{
@@ -54,31 +44,16 @@ public class JSONDecoderCharTest extends TestCase implements Test{
         assertEquals( '\uffff', result );
     }
 
-    public void testCharSpaceString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\" \"" );
-        assertEquals( " ", jse.decode() );
-    }
-
     public void testCharSpace() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\" \"" );
         char result = jse.decode( char.class );
         assertEquals( ' ', result );
     }
 
-    public void testQuantationMarkString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\\"\"" );
-        assertEquals( "\"", jse.decode() );
-    }
-
     public void testQuantationMark() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"\\\"\"" );
         Character result = jse.decode( char.class );
         assertEquals( Character.valueOf( '\"' ), result );
-    }
-
-    public void testReverseSolidusString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\\\\"" );
-        assertEquals( "\\", jse.decode() );
     }
 
     public void testReverseSolidus() throws IOException{
@@ -97,11 +72,6 @@ public class JSONDecoderCharTest extends TestCase implements Test{
         }
     }
 
-    public void testSolidusString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\/\"" );
-        assertEquals( "/", jse.decode() );
-    }
-
     public void testSolidus() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"\\/\"" );
         char result = jse.decode( char.class );
@@ -114,20 +84,10 @@ public class JSONDecoderCharTest extends TestCase implements Test{
         assertEquals( '/', result );
     }
 
-    public void testBackspaceString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\b\"" );
-        assertEquals( "\b", jse.decode() );
-    }
-
     public void testBackspace() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"\\b\"" );
         char result = jse.decode( char.class );
         assertEquals( '\b', result );
-    }
-
-    public void testFormfeedString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\f\"" );
-        assertEquals( "\f", jse.decode() );
     }
 
     public void testFormfeed() throws IOException{
@@ -136,20 +96,10 @@ public class JSONDecoderCharTest extends TestCase implements Test{
         assertEquals( '\f', result );
     }
 
-    public void testNewLineString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\n\"" );
-        assertEquals( "\n", jse.decode() );
-    }
-
     public void testNewLine() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"\\n\"" );
         char result = jse.decode( char.class );
         assertEquals( '\n', result );
-    }
-
-    public void testCarriageReturnString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\r\"" );
-        assertEquals( "\r", jse.decode() );
     }
 
     public void testCarriageReturn() throws IOException{
@@ -158,20 +108,10 @@ public class JSONDecoderCharTest extends TestCase implements Test{
         assertEquals( '\r', result );
     }
 
-    public void testHorizontalTabString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\t\"" );
-        assertEquals( "\t", jse.decode() );
-    }
-
     public void testHorizontalTab() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"\\t\"" );
         char result = jse.decode( char.class );
         assertEquals( '\t', result );
-    }
-
-    public void testHexString() throws IOException{
-        JSONDecoder jse = new JSONDecoder( "\"\\uffff\"" );
-        assertEquals( "\uffff", jse.decode() );
     }
 
     public void testHex() throws IOException{

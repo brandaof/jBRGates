@@ -62,16 +62,6 @@ public class JSONDecoderCharTest extends TestCase implements Test{
         assertEquals( '\\', result );
     }
 
-    public void testReverseSolidusError() throws IOException{
-        try{
-            JSONDecoder jse = new JSONDecoder( "\"\\\"" );
-            jse.decode();
-            fail( "expected JSONException" );
-        }
-        catch( JSONException e ){
-        }
-    }
-
     public void testSolidus() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"\\/\"" );
         char result = jse.decode( char.class );

@@ -57,8 +57,35 @@ public class JSONDecoderStringTest extends TestCase implements Test{
         assertEquals( "\\", jse.decode() );
     }
 
+    public void testUniqueReverseSolidus() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "\"\\\"" );
+            Object result = jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testUniqueReverseSolidusMore() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "\"c:\\kk\\nn\"" );
+            char result = jse.decode( char.class );
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
     public void testSolidus() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"\\/\"" );
+        assertEquals( "/", jse.decode() );
+    }
+
+    public void testSolidusMore() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "\"/\"" );
         assertEquals( "/", jse.decode() );
     }
 

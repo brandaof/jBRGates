@@ -149,6 +149,28 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         fail( "expected JSONException" );
     }
 
+    public void testWithoutComma() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "{ \"name\" : null \"name\" : null }" );
+           jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testWithoutColon() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "{ \"name\" null }" );
+           jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
     public void testClassString() throws IOException{
         JSONDecoder jse = new JSONDecoder(String.format( "\"%s\"" , Integer.class.getName() )  );
         assertEquals( Integer.class.getName(), jse.decode() );

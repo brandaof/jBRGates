@@ -32,6 +32,146 @@ public class JSONDecoderNumberTest extends TestCase implements Test{
         super();
     }
 
+    public void testNumberWithoutFirstDisgit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( ".100" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberWithoutDecimalDigit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "1." );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberWithoutDecimalDigitE() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "0.e" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberDecimalDigitEMore() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "0.e+" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberDecimalDigitESub() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "0.e-" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberDecimalDigitEMoreDigit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "0.e+10" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberDecimalDigitESubDigit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "0.e-10" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberDecimalEDigit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "0.e10" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+
+
+    public void testNumberEMore() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "01111e10" );
+        jse.decode();
+    }
+
+    public void testNumberE() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "1e10" );
+        jse.decode();
+    }
+
+    public void testNumberESub() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "-100e10" );
+        jse.decode();
+    }
+
+
+
+    public void testNumberEWithoutDigit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "e10" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberEMoreWithoutDigit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "+e10" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
+    public void testNumberESubWithoutDigit() throws IOException{
+        try{
+            JSONDecoder jse = new JSONDecoder( "-e10" );
+            jse.decode();
+        }
+        catch( JSONException e ){
+            return;
+        }
+        fail( "expected JSONException" );
+    }
+
     public void testIntString() throws IOException{
         JSONDecoder jse = new JSONDecoder( String.valueOf( 10 ) );
         Object value = jse.decode();

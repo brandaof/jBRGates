@@ -21,6 +21,7 @@ package org.brandao.jbrgates;
  * Thrown if a problem occurs when decoding and encoding.
  * 
  * @author Afonso Brandao
+ * @version 1.0
  */
 public class JSONException extends RuntimeException{
 

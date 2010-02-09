@@ -22,6 +22,7 @@ package org.brandao.jbrgates;
  * object within a container IOC.
  *
  * @author Afonso Brandao
+ * @version 1.0
  */
 public interface FactoryBean {
 

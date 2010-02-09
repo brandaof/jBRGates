@@ -19,6 +19,8 @@
 package org.brandao.jbrgates;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
@@ -102,6 +104,48 @@ public class JSONEncoderNumberTest extends TestCase implements Test{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( -0.2f );
         assertEquals( jse.toString(), "-0.2" );
+    }
+
+    public void testShort() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( (short)33 );
+        assertEquals( jse.toString(), "33" );
+    }
+
+    public void testShortObject() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( new Short((short)33) );
+        assertEquals( jse.toString(), "33" );
+    }
+
+    public void testShortNegativo() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( (short)-33 );
+        assertEquals( jse.toString(), "-33" );
+    }
+
+    public void testBigDecimal() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( new BigDecimal( 123.222 ) );
+        assertEquals( jse.toString(), (new BigDecimal( 123.222 )).toString() );
+    }
+
+    public void testBigDecimalNegativo() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( new BigDecimal( -123.222 ) );
+        assertEquals( jse.toString(), (new BigDecimal( -123.222 )).toString() );
+    }
+
+    public void testBigInteger() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( new BigInteger( "123", 10 ) );
+        assertEquals( jse.toString(), "123" );
+    }
+
+    public void testBigIntegerNegativo() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( new BigInteger( "-123", 10 ) );
+        assertEquals( jse.toString(), "-123" );
     }
 
 }

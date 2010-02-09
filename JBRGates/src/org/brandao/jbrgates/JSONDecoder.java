@@ -22,10 +22,15 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -60,7 +65,98 @@ import java.util.Set;
  * MyObject obj = jde.decode( MyObject.class );
  * </pre>
  *
+ * <h4>Summary of decoding rules for json type into java type</h4>
+ *
+ * <table border="1" cellpadding="1" cellspacing="0">
+ *   <tr>
+ *     <td bgcolor="#CCCCFF">Json Type</td>
+ *     <td bgcolor="#CCCCFF">Java Type</td>
+ *   </tr>
+ *   <tr>
+ *     <td rowspan="2">Object</td>
+ *     <td>java.util.Map</td>
+ *   </tr>
+ *   <tr>
+ *     <td>Object</td>
+ *   </tr>
+ *   <tr>
+ *     <td rowspan="3">Array</td>
+ *     <td>Object[]</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Collection</td>
+ *   </tr>
+ *   <tr>
+ *     <td>int[], long[], double[], float[], short[], boolean[], char[],
+ *       byte[]</td>
+ *   </tr>
+ *   <tr>
+ *     <td rowspan="7">String</td>
+ *     <td>char</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.CharSequence</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.String</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.net.URL</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.net.URI</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Character</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Class</td>
+ *   </tr>
+  *   <tr>
+ *     <td>String (language-country)</td>
+ *     <td>java.util.Locale</td>
+ *   </tr>
+*   <tr>
+ *     <td rowspan="4">number</td>
+ *     <td>java.lang.Number</td>
+ *   </tr>
+ *   <tr>
+ *     <td>int, long, double, float, short, byte</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.math.BigDecimal</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.math.BigInteger</td>
+ *   </tr>
+ *   <tr>
+ *     <td rowspan="4">number (milliseconds since 1970)</td>
+ *     <td>java.util.Date</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.sql.Time</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.sql.Timestamp</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Calendar</td>
+ *   </tr>
+ *   <tr>
+ *     <td rowspan="2">true/false</td>
+ *     <td>boolean</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Boolean</td>
+ *   </tr>
+ *   <tr>
+ *     <td>null</td>
+ *     <td>null</td>
+ *   </tr>
+ * </table>
+ *
  * @author Afonso Brandao
+ * @version 1.0
  */
 public class JSONDecoder implements JSONConstants{
 
@@ -264,8 +360,23 @@ public class JSONDecoder implements JSONConstants{
             if( value == null )
                 return null;
             else
-            if( type == null || type == String.class || type == Object.class )
+            if( type == null || CharSequence.class.isAssignableFrom(wrapper) || type == Object.class )
                 return value;
+            else
+            if( BigDecimal.class.isAssignableFrom(wrapper) )
+                return new BigDecimal( value );
+            else
+            if( BigInteger.class.isAssignableFrom(wrapper) )
+                return new BigInteger( value, 10 );
+            else
+            if( URI.class.isAssignableFrom(wrapper) )
+                return new URI( value );
+            else
+            if( URL.class.isAssignableFrom(wrapper) )
+                return new URL( value );
+            else
+            if( Locale.class.isAssignableFrom(wrapper) )
+                return LocaleUtils.getLocale(value);
             else
             if( type == Class.class )
                 return Class.forName( value );

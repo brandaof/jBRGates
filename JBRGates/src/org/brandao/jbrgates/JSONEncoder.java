@@ -22,10 +22,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -55,8 +60,99 @@ import java.util.Map;
  * <pre>
  * { "id": 1, "name" : "Jose", "class" : "MyObject" }
  * </pre>
+ *
+ * <h4>Summary of encoding rules for java type into json type</h4>
+ * 
+ * <table border="1" cellpadding="1" cellspacing="0">
+ *   <tr>
+ *     <td bgcolor="#CCCCFF">Java Type</td>
+ *     <td bgcolor="#CCCCFF">Json Type</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Map</td>
+ *     <td rowspan="2">Object</td>
+ *   </tr>
+ *   <tr>
+ *     <td>Object</td>
+ *   </tr>
+ *   <tr>
+ *     <td>Object[]</td>
+ *     <td rowspan="3">Array</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Collection</td>
+ *   </tr>
+ *   <tr>
+ *     <td>int[], long[], double[], float[], short[], boolean[], char[],
+ *       byte[]</td>
+ *   </tr>
+ *   <tr>
+ *     <td>char</td>
+ *     <td rowspan="7">String</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.CharSequence</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.String</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.net.URL</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.net.URI</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Character</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Class</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Locale</td>
+ *     <td>String (language-country)</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Number</td>
+ *     <td rowspan="4">number</td>
+ *   </tr>
+ *   <tr>
+ *     <td>int, long, double, float, short, byte</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.math.BigDecimal</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.math.BigInteger</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Date</td>
+ *     <td rowspan="4">number (milliseconds since 1970)</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.sql.Time</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.sql.Timestamp</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Calendar</td>
+ *   </tr>
+ *   <tr>
+ *     <td>boolean</td>
+ *     <td rowspan="2">true/false</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Boolean</td>
+ *   </tr>
+ *   <tr>
+ *     <td>null</td>
+ *     <td>null</td>
+ *   </tr>
+ * </table>
  * 
  * @author Afonso Brandao
+ * @version 1.0
  */
 public class JSONEncoder  implements JSONConstants{
 
@@ -136,14 +232,8 @@ public class JSONEncoder  implements JSONConstants{
                         .append( QUOTE ) );
         }
         else
-        if( clazz == String.class )
+        if( CharSequence.class.isAssignableFrom(clazz) )
             string( obj );
-            /*
-            innerWrite(
-                    (new StringBuffer( QUOTE ))
-                        .append( String.valueOf( obj ) )
-                        .append( QUOTE ) );
-             */
         else
         if( Character.class == ClassType.getWrapper( clazz ) ){
             if( obj.equals( '\u0000' ) )
@@ -151,6 +241,21 @@ public class JSONEncoder  implements JSONConstants{
             else
                 string( String.valueOf(obj) );
         }
+        else
+        if( Locale.class.isAssignableFrom(clazz) )
+            string( LocaleUtils.getKey((Locale)obj) );
+        else
+        if( BigDecimal.class.isAssignableFrom(clazz) )
+            innerWrite( ((BigDecimal)obj).toString() );
+        else
+        if( BigInteger.class.isAssignableFrom(clazz) )
+            innerWrite( ((BigInteger)obj).toString() );
+        else
+        if( URI.class.isAssignableFrom(clazz) )
+            string( obj );
+        else
+        if( URL.class.isAssignableFrom(clazz) )
+            string( obj );
         else
         if( MappingBean.isStandardProperty( clazz ) )
             innerWrite( 
@@ -321,6 +426,10 @@ public class JSONEncoder  implements JSONConstants{
     }
 
     private void innerWrite( StringBuffer value ) throws IOException{
+        this.buffer.append( value );
+    }
+
+    private void innerWrite( String value ) throws IOException{
         this.buffer.append( value );
     }
 

@@ -19,6 +19,8 @@
 package org.brandao.jbrgates;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
@@ -324,6 +326,78 @@ public class JSONDecoderNumberTest extends TestCase implements Test{
         JSONDecoder jse = new JSONDecoder( String.valueOf( -2.03f ) );
         Object value = jse.decode( Float.class );
         assertEquals( -2.03f, value );
+    }
+
+
+    public void testShortString() throws IOException{
+        JSONDecoder jse = new JSONDecoder( String.valueOf( (short)2 ) );
+        Object value = jse.decode();
+        assertEquals( "2", value );
+    }
+
+    public void testShort() throws IOException{
+        JSONDecoder jse = new JSONDecoder( String.valueOf( (short)2 ) );
+        Object value = jse.decode( short.class );
+        assertEquals( (short)2, value );
+    }
+
+    public void testShortObject() throws IOException{
+        JSONDecoder jse = new JSONDecoder( String.valueOf( (short)2 ) );
+        Object value = jse.decode( Short.class );
+        assertEquals( (short)2, value );
+    }
+
+
+
+    public void testShortNegativoString() throws IOException{
+        JSONDecoder jse = new JSONDecoder( String.valueOf( (short)-2 ) );
+        Object value = jse.decode();
+        assertEquals( "-2", value );
+    }
+
+    public void testShortNegativo() throws IOException{
+        JSONDecoder jse = new JSONDecoder( String.valueOf( (short)-2 ) );
+        Object value = jse.decode( short.class );
+        assertEquals( (short)-2, value );
+    }
+
+    public void testShortNegativoObject() throws IOException{
+        JSONDecoder jse = new JSONDecoder( String.valueOf( (short)-2 ) );
+        Object value = jse.decode( Short.class );
+        assertEquals( (short)-2, value );
+    }
+
+
+
+
+    public void testBigDecimalString() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "123.222" );
+        assertEquals( jse.decode(), "123.222" );
+    }
+
+    public void testBigDecimal() throws IOException{
+        JSONDecoder jse = new JSONDecoder( (new BigDecimal(123.222)).toString() );
+        assertEquals( jse.decode( BigDecimal.class ), new BigDecimal(123.222) );
+    }
+
+    public void testBigDecimalNegativo() throws IOException{
+        JSONDecoder jse = new JSONDecoder( (new BigDecimal(-123.222)).toString() );
+        assertEquals( jse.decode( BigDecimal.class ), new BigDecimal(-123.222) );
+    }
+
+    public void testBigIntegerString() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "123" );
+        assertEquals( jse.decode(), "123" );
+    }
+
+    public void testBigInteger() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "123" );
+        assertEquals( jse.decode( BigInteger.class ), new BigInteger("123",10) );
+    }
+
+    public void testBigIntegerNegativo() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "-123" );
+        assertEquals( jse.decode( BigInteger.class ), new BigInteger("-123",10) );
     }
 
 }

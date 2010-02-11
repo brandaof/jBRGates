@@ -323,7 +323,7 @@ public class JSONDecoder implements JSONConstants{
     private Object getObject( Object data, Type clazz ) throws Exception{
 
         if( !(data instanceof Map) )
-            return toValue( (String)data, clazz );
+            return toValue( String.valueOf( data ), clazz );
         else{
             Map values = (Map)data;
             Class classType = getClass( (Map<String,Object>)values, clazz );

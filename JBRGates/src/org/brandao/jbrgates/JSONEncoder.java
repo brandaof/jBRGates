@@ -210,12 +210,13 @@ public class JSONEncoder  implements JSONConstants{
     }
     
     private void encoderObject( Object obj, Class clazz ) throws IOException{
-        if( obj == null )
-            return ;
-        else
+        
         if( obj instanceof Serializable ){
             encoderObject0( clazz == null? obj.getClass() : clazz, obj );
         }
+        else
+        if( obj == null )
+            encoderObject0( null, null );
         else
             throw new JSONException( obj.getClass().getName() + " : not implement java.io.Serializable" );
     }

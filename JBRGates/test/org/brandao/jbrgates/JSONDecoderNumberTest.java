@@ -400,4 +400,34 @@ public class JSONDecoderNumberTest extends TestCase implements Test{
         assertEquals( jse.decode( BigInteger.class ), new BigInteger("-123",10) );
     }
 
+    public void testByteString() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "10" );
+        assertEquals( jse.decode(), "10" );
+    }
+
+    public void testByte() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "10" );
+        assertEquals( Byte.valueOf( jse.decode(byte.class) ), Byte.valueOf(  (byte)10 ) );
+    }
+
+    public void testByteObject() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "10" );
+        assertEquals( jse.decode(Byte.class), Byte.valueOf((byte)10) );
+    }
+
+    public void testByteNegativoString() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "-10" );
+        assertEquals( jse.decode(), "-10" );
+    }
+
+    public void testByteNegativo() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "-10" );
+        assertEquals( Byte.valueOf( jse.decode(byte.class) ), Byte.valueOf(  (byte)-10 ) );
+    }
+
+    public void testByteNegativoObject() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "-10" );
+        assertEquals( jse.decode(Byte.class), Byte.valueOf((byte)-10) );
+    }
+
 }

@@ -110,13 +110,9 @@ public class JSONEncoderObjectTest extends TestCase implements Test{
     }
 
     public void testNull() throws IOException{
-        try{
-            JSONEncoder jse = new JSONEncoder();
-            jse.encode( null );
-        }
-        catch( NullPointerException e ){
-            fail( "not expected NullPointerException" );
-        }
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( null );
+        assertEquals( "null", jse.toString() );
     }
 
     public void testClass() throws IOException{

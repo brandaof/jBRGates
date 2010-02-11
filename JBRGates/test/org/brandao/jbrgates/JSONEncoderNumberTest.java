@@ -148,4 +148,16 @@ public class JSONEncoderNumberTest extends TestCase implements Test{
         assertEquals( jse.toString(), "-123" );
     }
 
+    public void testByte() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( (byte)10 );
+        assertEquals( jse.toString(), "10" );
+    }
+
+    public void testByteNegativo() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( (byte)-22 );
+        assertEquals( jse.toString(), "-22" );
+    }
+
 }

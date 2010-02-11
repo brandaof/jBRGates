@@ -171,6 +171,11 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         fail( "expected JSONException" );
     }
 
+    public void testNullString() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "null" );
+        assertNull( jse.decode() );
+    }
+
     public void testClassString() throws IOException{
         JSONDecoder jse = new JSONDecoder(String.format( "\"%s\"" , Integer.class.getName() )  );
         assertEquals( Integer.class.getName(), jse.decode() );

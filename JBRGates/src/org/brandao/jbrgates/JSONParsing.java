@@ -189,10 +189,10 @@ class JSONParsing implements JSONConstants{
         if( START_ARRAY_STR == inicio )
             return array( clazz );
         else
-        if( inicio == 'T' || inicio == 't' || inicio == 'F' || inicio == 'f' )
+        if( inicio == 't' || inicio == 'f' )
             return bool();
         else
-        if( inicio == 'n' || inicio == 'N' )
+        if( inicio == 'n' )
             return null0();
         else
             throwJSON( "expected at position $lin : String, Number, Object, Array, null, true or false", null );return null;
@@ -300,14 +300,14 @@ class JSONParsing implements JSONConstants{
         Character value = Character.toLowerCase( next(true) );
         StringBuffer result = new StringBuffer();
 
-        if( value == 'T' || value == 't' || value == 'F' || value == 'f' ){
+        if( value == 't' || value == 'f' ){
             result.append( value );
-            value = Character.toLowerCase( next(false) );
+            value = next(false);
             while( value != null &&
                    ( TRUE.indexOf( String.valueOf( value ) ) != -1 ||
                    FALSE.indexOf( String.valueOf( value ) ) != -1 ) ){
-                result.append( Character.toLowerCase( value ) );
-                value = Character.toLowerCase( next(false) );
+                result.append( value );
+                value = next(false);
             }
         }
 
@@ -324,15 +324,15 @@ class JSONParsing implements JSONConstants{
     }
     
     Object null0() throws IOException{
-        Character value = Character.toLowerCase( next(true) );
+        Character value = next(true);
         StringBuffer result = new StringBuffer();
 
-        if( value == 'N' || value == 'n' ){
+        if( value == 'n' ){
             result.append( value );
-            value = Character.toLowerCase( next(false) );
+            value = next(false);
             while( value != null && NULL.indexOf( String.valueOf( value ) ) != -1 ){
                 result.append( value );
-                value = Character.toLowerCase( next(false) );
+                value = next(false);
             }
         }
 

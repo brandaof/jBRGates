@@ -228,6 +228,10 @@ public class JSONDecoder implements JSONConstants{
 
     private Object decoder0( Object data, Type clazz ) throws Exception{
         Class clazzType = getClass( clazz );
+
+        if( data == null )
+            return null;
+        else
         if( data instanceof List ){
             return array( (List<Object>)data, clazz );
         }

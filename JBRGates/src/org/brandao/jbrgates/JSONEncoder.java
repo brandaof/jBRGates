@@ -292,23 +292,25 @@ public class JSONEncoder  implements JSONConstants{
 
     private void encoderObject1( Object obj, Class clazz ) throws IOException{
         if( cache.containsKey( obj ) ){
-            //StringBuffer s = cache.get( obj );
+            StringBuffer s = cache.get( obj );
+            innerWrite( s != null? s : NULL );
             //innerWrite( s.length() == 0? NULL : s );
-            innerWrite( NULL );
+            //innerWrite( NULL );
         }
         else{
-            cache.put( obj, buffer );
             StringBuffer old = this.buffer;
             this.buffer = new StringBuffer();
+
+            cache.put( obj, null );
             innerWrite( START_OBJECT );
             MappingBean mapping = MappingBean.getMapping( clazz );
             encoderFields( mapping.getMethods().values(), obj );
             innerWrite( END_OBJECT );
+            cache.put( obj, this.buffer );
 
             StringBuffer tmp = this.buffer;
             this.buffer = old;
             innerWrite( tmp );
-            this.buffer = old;
         }
     }
 

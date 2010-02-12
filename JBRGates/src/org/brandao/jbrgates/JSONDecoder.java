@@ -383,7 +383,7 @@ public class JSONDecoder implements JSONConstants{
                 return LocaleUtils.getLocale(value);
             else
             if( type == Class.class )
-                return Class.forName( value );
+                return ClassType.get(value);
             else
             if( Character.class == wrapper )
                 return value.length() == 0? null : value.charAt(0);

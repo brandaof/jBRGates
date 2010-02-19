@@ -226,6 +226,27 @@ public class JSONDecoder implements JSONConstants{
         }
     }
 
+    /**
+     * Decodes a JSON object in a specific type.
+     * @param type Class type.
+     * @return Object.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    public Object decode( Type type ) throws JSONException{
+        try{
+            Class clazz = getClass( type );
+            JSONParsing parsing = new JSONParsing( in );
+            return decoder0( parsing.object( clazz ), type );
+        }
+        catch( JSONException e ){
+            throw e;
+        }
+        catch( Exception e ){
+            throw new JSONException( e );
+        }
+    }
+
+
     private Object decoder0( Object data, Type clazz ) throws Exception{
         Class clazzType = getClass( clazz );
 

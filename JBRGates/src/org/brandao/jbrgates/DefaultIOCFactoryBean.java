@@ -37,22 +37,22 @@ class DefaultIOCFactoryBean implements FactoryBean{
 
     public <T> T getInstance( Class<T> type ){
         try{
-            if( type == Map.class )
+            if( Map.class.isAssignableFrom(type) )
                 return (T) new HashMap();
             else
-            if( type == Set.class )
+            if( Set.class.isAssignableFrom(type) )
                 return (T) new HashSet();
             else
-            if( type == List.class )
+            if( List.class.isAssignableFrom(type) )
                 return (T) new LinkedList();
             else
-            if( type == Time.class )
+            if( Time.class.isAssignableFrom(type) )
                 return (T) new Time( (new Date()).getTime() );
             else
-            if( type == Timestamp.class )
+            if( Timestamp.class.isAssignableFrom(type) )
                 return (T) new Timestamp( (new Date()).getTime() );
             else
-            if( type == Calendar.class )
+            if( Calendar.class.isAssignableFrom(type) )
                 return (T) new GregorianCalendar();
             else
                 return type.newInstance();

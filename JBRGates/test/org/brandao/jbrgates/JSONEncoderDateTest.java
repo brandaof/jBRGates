@@ -41,28 +41,28 @@ public class JSONEncoderDateTest extends TestCase implements Test{
         JSONEncoder jse = new JSONEncoder();
         Date date = new Date();
         jse.encode( date );
-        assertEquals( jse.toString(), String.valueOf( date.getTime() ) );
+        assertEquals( String.valueOf( date.getTime() ), jse.toString() );
     }
 
     public void testTime() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         Time time = new Time( (new Date()).getTime() );
         jse.encode( time );
-        assertEquals( jse.toString(), String.valueOf( time.getTime() ) );
+        assertEquals( String.valueOf( time.getTime() ), jse.toString() );
     }
 
     public void testTimestamp() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         Timestamp time = new Timestamp( (new Date()).getTime() );
         jse.encode( time );
-        assertEquals( jse.toString(), String.valueOf( time.getTime() ) );
+        assertEquals( String.valueOf( time.getTime() ), jse.toString() );
     }
 
     public void testCalendar() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         Calendar cal = new GregorianCalendar();
         jse.encode( cal );
-        assertEquals( jse.toString(), String.valueOf( cal.getTime().getTime() ) );
+        assertEquals( String.valueOf( cal.getTime().getTime() ), jse.toString() );
     }
 
 }

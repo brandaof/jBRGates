@@ -38,22 +38,22 @@ public class JSONDecoderURITest extends TestCase implements Test{
 
     public void testURIString() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"file://c:/teste/\"" );
-        assertEquals( jse.decode(), "file://c:/teste/" );
+        assertEquals( "file://c:/teste/", jse.decode() );
     }
 
     public void testURI() throws IOException, URISyntaxException{
         JSONDecoder jse = new JSONDecoder( "\"file://c:/teste/\"" );
-        assertEquals( jse.decode( URI.class ), new URI("file://c:/teste/") );
+        assertEquals( new URI("file://c:/teste/"), jse.decode( URI.class ) );
     }
 
     public void testURIStringUnicode() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"file\\u003a\\/\\/c\\u003a\\/teste\\/\"" );
-        assertEquals( jse.decode(), "file://c:/teste/" );
+        assertEquals( "file://c:/teste/", jse.decode() );
     }
 
     public void testURIUnicode() throws IOException, URISyntaxException{
         JSONDecoder jse = new JSONDecoder( "\"file\\u003a\\/\\/c\\u003a\\/teste\\/\"" );
-        assertEquals( jse.decode( URI.class ), new URI("file://c:/teste/") );
+        assertEquals( new URI("file://c:/teste/"), jse.decode( URI.class ) );
     }
 
 }

@@ -57,7 +57,7 @@ public class JSONEncoderCharSequenceTest extends TestCase implements Test{
     public void testString() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( new CharArray() );
-        assertEquals( jse.toString(), "\"Test char sequence\"" );
+        assertEquals( "\"Test char sequence\"", jse.toString() );
     }
 
 }

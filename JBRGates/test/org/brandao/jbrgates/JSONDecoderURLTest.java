@@ -35,21 +35,21 @@ public class JSONDecoderURLTest extends TestCase implements Test{
 
     public void testURLString() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"http://www.mysite.com/\"" );
-        assertEquals( jse.decode(), "http://www.mysite.com/" );
+        assertEquals( "http://www.mysite.com/", jse.decode() );
     }
 
     public void testURL() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"http://www.mysite.com/\"" );
-        assertEquals( jse.decode( URL.class ), new URL("http://www.mysite.com/") );
+        assertEquals( new URL("http://www.mysite.com/"), jse.decode( URL.class ) );
     }
 
     public void testURLStringUnicode() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"http\\u003a\\/\\/www\\u002emysite\\u002ecom\\/\"" );
-        assertEquals( jse.decode(), "http://www.mysite.com/" );
+        assertEquals( "http://www.mysite.com/", jse.decode() );
     }
 
     public void testURLUnicode() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"http\\u003a\\/\\/www\\u002emysite\\u002ecom\\/\"" );
-        assertEquals( jse.decode( URL.class ), new URL("http://www.mysite.com/") );
+        assertEquals( new URL("http://www.mysite.com/"), jse.decode( URL.class ) );
     }
 }

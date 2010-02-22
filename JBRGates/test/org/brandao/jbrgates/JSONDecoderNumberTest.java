@@ -372,62 +372,62 @@ public class JSONDecoderNumberTest extends TestCase implements Test{
 
     public void testBigDecimalString() throws IOException{
         JSONDecoder jse = new JSONDecoder( "123.222" );
-        assertEquals( jse.decode(), "123.222" );
+        assertEquals( "123.222", jse.decode() );
     }
 
     public void testBigDecimal() throws IOException{
         JSONDecoder jse = new JSONDecoder( (new BigDecimal(123.222)).toString() );
-        assertEquals( jse.decode( BigDecimal.class ), new BigDecimal(123.222) );
+        assertEquals( new BigDecimal(123.222), jse.decode( BigDecimal.class ) );
     }
 
     public void testBigDecimalNegativo() throws IOException{
         JSONDecoder jse = new JSONDecoder( (new BigDecimal(-123.222)).toString() );
-        assertEquals( jse.decode( BigDecimal.class ), new BigDecimal(-123.222) );
+        assertEquals( new BigDecimal(-123.222), jse.decode( BigDecimal.class ) );
     }
 
     public void testBigIntegerString() throws IOException{
         JSONDecoder jse = new JSONDecoder( "123" );
-        assertEquals( jse.decode(), "123" );
+        assertEquals( "123", jse.decode() );
     }
 
     public void testBigInteger() throws IOException{
         JSONDecoder jse = new JSONDecoder( "123" );
-        assertEquals( jse.decode( BigInteger.class ), new BigInteger("123",10) );
+        assertEquals( new BigInteger("123",10), jse.decode( BigInteger.class ) );
     }
 
     public void testBigIntegerNegativo() throws IOException{
         JSONDecoder jse = new JSONDecoder( "-123" );
-        assertEquals( jse.decode( BigInteger.class ), new BigInteger("-123",10) );
+        assertEquals( new BigInteger("-123",10), jse.decode( BigInteger.class ) );
     }
 
     public void testByteString() throws IOException{
         JSONDecoder jse = new JSONDecoder( "10" );
-        assertEquals( jse.decode(), "10" );
+        assertEquals( "10", jse.decode() );
     }
 
     public void testByte() throws IOException{
         JSONDecoder jse = new JSONDecoder( "10" );
-        assertEquals( Byte.valueOf( jse.decode(byte.class) ), Byte.valueOf(  (byte)10 ) );
+        assertEquals( Byte.valueOf(  (byte)10 ), Byte.valueOf( jse.decode(byte.class) ) );
     }
 
     public void testByteObject() throws IOException{
         JSONDecoder jse = new JSONDecoder( "10" );
-        assertEquals( jse.decode(Byte.class), Byte.valueOf((byte)10) );
+        assertEquals( Byte.valueOf((byte)10), jse.decode(Byte.class) );
     }
 
     public void testByteNegativoString() throws IOException{
         JSONDecoder jse = new JSONDecoder( "-10" );
-        assertEquals( jse.decode(), "-10" );
+        assertEquals( "-10",jse.decode() );
     }
 
     public void testByteNegativo() throws IOException{
         JSONDecoder jse = new JSONDecoder( "-10" );
-        assertEquals( Byte.valueOf( jse.decode(byte.class) ), Byte.valueOf(  (byte)-10 ) );
+        assertEquals( Byte.valueOf(  (byte)-10 ), Byte.valueOf( jse.decode(byte.class) ) );
     }
 
     public void testByteNegativoObject() throws IOException{
         JSONDecoder jse = new JSONDecoder( "-10" );
-        assertEquals( jse.decode(Byte.class), Byte.valueOf((byte)-10) );
+        assertEquals( Byte.valueOf((byte)-10), jse.decode(Byte.class) );
     }
 
 }

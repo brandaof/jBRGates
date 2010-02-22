@@ -37,7 +37,7 @@ public class JSONEncoderURLTest extends TestCase implements Test{
     public void testURL() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( new URL("http://www.mysite.com/") );
-        assertEquals( jse.toString(), "\"http\\u003a\\/\\/www\\u002emysite\\u002ecom\\/\"" );
+        assertEquals( "\"http\\u003a\\/\\/www\\u002emysite\\u002ecom\\/\"", jse.toString() );
     }
 
 }

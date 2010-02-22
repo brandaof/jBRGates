@@ -39,7 +39,7 @@ public class JSONEncoderURITest extends TestCase implements Test{
     public void testURI() throws IOException, URISyntaxException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( new URI("file://c:/teste/") );
-        assertEquals( jse.toString(), "\"file\\u003a\\/\\/c\\u003a\\/teste\\/\"" );
+        assertEquals( "\"file\\u003a\\/\\/c\\u003a\\/teste\\/\"", jse.toString() );
     }
 
 }

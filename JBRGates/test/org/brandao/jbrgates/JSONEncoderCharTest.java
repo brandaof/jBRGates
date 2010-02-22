@@ -35,73 +35,73 @@ public class JSONEncoderCharTest extends TestCase implements Test{
     public void testCharUnicode() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( 'A' );
-        assertEquals( jse.toString(), "\"A\"" );
+        assertEquals( "\"A\"", jse.toString() );
     }
 
     public void testChar() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\uffff' );
-        assertEquals( jse.toString(), "\"\\uffff\"" );
+        assertEquals( "\"\\uffff\"", jse.toString() );
     }
 
     public void testCharSpace() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( ' ' );
-        assertEquals( jse.toString(), "\" \"" );
+        assertEquals( "\" \"", jse.toString() );
     }
 
     public void testQuantationMark() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\"' );
-        assertEquals( jse.toString(), "\"\\\"\"" );
+        assertEquals( "\"\\\"\"", jse.toString() );
     }
 
     public void testReverseSolidus() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\\' );
-        assertEquals( jse.toString(), "\"\\\\\"" );
+        assertEquals( "\"\\\\\"", jse.toString() );
     }
 
     public void testSolidus() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '/' );
-        assertEquals( jse.toString(), "\"\\/\"" );
+        assertEquals( "\"\\/\"", jse.toString() );
     }
 
     public void testBackspace() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\b' );
-        assertEquals( jse.toString(), "\"\\b\"" );
+        assertEquals( "\"\\b\"", jse.toString() );
     }
 
     public void testFormfeed() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\f' );
-        assertEquals( jse.toString(), "\"\\f\"" );
+        assertEquals( "\"\\f\"", jse.toString() );
     }
 
     public void testNewLine() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\n' );
-        assertEquals( jse.toString(), "\"\\n\"" );
+        assertEquals( "\"\\n\"", jse.toString() );
     }
 
     public void testCarriageReturn() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\r' );
-        assertEquals( jse.toString(), "\"\\r\"" );
+        assertEquals( "\"\\r\"", jse.toString() );
     }
 
     public void testHorizontalTab() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\t' );
-        assertEquals( jse.toString(), "\"\\t\"" );
+        assertEquals( "\"\\t\"", jse.toString() );
     }
 
     public void testHex() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( '\u0fff' );
-        assertEquals( jse.toString(), "\"\\u0fff\"" );
+        assertEquals( "\"\\u0fff\"", jse.toString() );
     }
 
 }

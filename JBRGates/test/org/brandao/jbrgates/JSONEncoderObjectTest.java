@@ -118,7 +118,7 @@ public class JSONEncoderObjectTest extends TestCase implements Test{
     public void testClass() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( Integer.class );
-        assertEquals( jse.toString(), String.format( "\"%s\"" , Integer.class.getName() ) );
+        assertEquals( String.format( "\"%s\"" , Integer.class.getName() ), jse.toString() );
     }
 
     public void testNotSerializable() throws IOException{
@@ -135,29 +135,34 @@ public class JSONEncoderObjectTest extends TestCase implements Test{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( new Test2() );
 
-        assertEquals( jse.toString(), 
+        assertEquals( 
             "{ \"class\" : \"org.brandao.jbrgates.JSONEncoderObjectTest$Test2\", " +
             "\"f1\" : 100, " +
             "\"f3\" : \"\", " +
-            "\"f2\" : null }" );
+            "\"f2\" : null }",
+            jse.toString()
+            );
     }
 
     public void testCiclico() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( new Test3() );
-        assertEquals( jse.toString(),
+        assertEquals( 
             "{ \"f\" : null, " +
             "\"class\" : \"org.brandao.jbrgates.JSONEncoderObjectTest$Test3\"" +
-            " }" );
+            " }",
+            jse.toString()
+            );
     }
 
     public void testExtends() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( new Test4() );
 
-        assertEquals( jse.toString(),
+        assertEquals( 
             "{ \"f\" : null, " +
-            "\"class\" : \"org.brandao.jbrgates.JSONEncoderObjectTest$Test4\" }"
+            "\"class\" : \"org.brandao.jbrgates.JSONEncoderObjectTest$Test4\" }",
+            jse.toString()
             );
     }
 

@@ -230,10 +230,10 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         Test2 origin = new Test2();
         Object result = jsd.decode();
         assertNotNull( result );
-        assertEquals( result.getClass().getName(), result.getClass(), Test2.class );
-        assertEquals( ((Test2)result).getF1(), origin.getF1() );
-        assertEquals( ((Test2)result).getF2(), origin.getF2() );
-        assertEquals( ((Test2)result).getF3(), origin.getF3() );
+        assertEquals( Test2.class,result.getClass() );
+        assertEquals( origin.getF1(), ((Test2)result).getF1() );
+        assertEquals( origin.getF2(), ((Test2)result).getF2() );
+        assertEquals( origin.getF3(), ((Test2)result).getF3() );
     }
 
     public void testCiclico() throws IOException{
@@ -262,7 +262,7 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         Test4 result = (Test4) jsd.decode();
         assertNotNull( result );
         assertEquals( origin, origin.getF() );
-        assertEquals( result.getV(), 200 );
+        assertEquals( 200, result.getV() );
     }
 
     public void testSemIdentificacaoException() throws IOException{
@@ -289,7 +289,7 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
         Test4 result = jsd.decode( Test4.class );
         assertNotNull( result );
         assertEquals( origin, origin.getF() );
-        assertEquals( result.getV(), 200 );
+        assertEquals( 200, result.getV() );
     }
 
 }

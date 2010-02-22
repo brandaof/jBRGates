@@ -57,11 +57,11 @@ public class JSONDecoderCharSequenceTest extends TestCase implements Test{
 
     public void testCharSequenceString() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"Test char sequence\"" );
-        assertEquals( jse.decode(), "Test char sequence" );
+        assertEquals( "Test char sequence", jse.decode() );
     }
 
     public void testCharSequence() throws IOException{
         JSONDecoder jse = new JSONDecoder( "\"Test char sequence\"" );
-        assertEquals( jse.decode( CharSequence.class ).toString(), (new CharArray()).toString() );
+        assertEquals( (new CharArray()).toString(), jse.decode( CharSequence.class ).toString() );
     }
 }

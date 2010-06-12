@@ -36,7 +36,7 @@ public class JSONEncoderLocaleTest extends TestCase implements Test{
     public void testLocaleString() throws IOException{
         String locale =
                 String.format(
-                        "%s\\u002d%s",
+                        "%s-%s",
                         Locale.US.getLanguage(),
                         Locale.US.getCountry() );
 

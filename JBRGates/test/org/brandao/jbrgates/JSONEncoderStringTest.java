@@ -35,7 +35,16 @@ public class JSONEncoderStringTest extends TestCase implements Test{
     public void testStringUnicode() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( "My name is!" );
-        assertEquals( "\"My name is\\u0021\"", jse.toString() );
+        assertEquals( "\"My name is!\"", jse.toString() );
+    }
+
+    public void testString() throws IOException{
+        JSONEncoder jse = new JSONEncoder();
+        jse.encode( "Meu nome é" );
+
+        String hex = "000" + Integer.toHexString( 'é' );
+        hex = hex.substring( hex.length() - 4 , hex.length() );
+        assertEquals( "\"Meu nome \\u" + hex + "\"", jse.toString() );
     }
 
     public void testStringNull() throws IOException{

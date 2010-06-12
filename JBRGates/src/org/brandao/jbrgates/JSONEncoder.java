@@ -414,7 +414,7 @@ public class JSONEncoder  implements JSONConstants{
                 buf.append("\\r");
                 break;
             default:
-                if( ch == ' ' || Character.isUnicodeIdentifierPart( tmp.codePointAt( i ) ) )
+                if( ((ch >= 0x0020) && (ch <= 0x007e))/* || Character.isUnicodeIdentifierPart( tmp.codePointAt( i ) )*/ )
                     buf.append( tmp.charAt( i ) );
                 else{
                     String hex = "000" + Integer.toHexString( ch );

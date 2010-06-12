@@ -295,9 +295,9 @@ public class JSONEncoderListTest extends TestCase implements Test{
 
         assertEquals(
             "[ " +
-                "\"http\\u003a\\/\\/www\\u002emysite\\u002ecom\", " +
-                "\"http\\u003a\\/\\/www\\u002emysite\\u002enet\", " +
-                "\"http\\u003a\\/\\/www\\u002emysite\\u002ebr\" ]", jse.toString() );
+                "\"http:\\/\\/www.mysite.com\", " +
+                "\"http:\\/\\/www.mysite.net\", " +
+                "\"http:\\/\\/www.mysite.br\" ]", jse.toString() );
     }
 
     public void testURI() throws IOException, URISyntaxException{
@@ -310,9 +310,9 @@ public class JSONEncoderListTest extends TestCase implements Test{
         
         assertEquals(
             "[ " +
-                "\"http\\u003a\\/\\/www\\u002emysite\\u002ecom\", " +
-                "\"http\\u003a\\/\\/www\\u002emysite\\u002enet\", " +
-                "\"http\\u003a\\/\\/www\\u002emysite\\u002ebr\" ]", jse.toString() );
+                "\"http:\\/\\/www.mysite.com\", " +
+                "\"http:\\/\\/www.mysite.net\", " +
+                "\"http:\\/\\/www.mysite.br\" ]", jse.toString() );
     }
 
     public void testClass() throws IOException{
@@ -326,7 +326,7 @@ public class JSONEncoderListTest extends TestCase implements Test{
         jse.encode( Arrays.asList( Locale.US, Locale.CANADA, Locale.FRANCE ) );
         assertEquals( 
                 String.format(
-                    "[ \"%s\\u002d%s\", \"%s\\u002d%s\", \"%s\\u002d%s\" ]",
+                    "[ \"%s-%s\", \"%s-%s\", \"%s-%s\" ]",
                     Locale.US.getLanguage(),
                     Locale.US.getCountry(),
                     Locale.CANADA.getLanguage(),

@@ -19,4 +19,11 @@
                 <maven.test.skip>true</maven.test.skip>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-Site</actionName>
+            <displayName>Site</displayName>
+            <goals>
+                <goal>site:site</goal>
+            </goals>
+        </action>
     </actions>

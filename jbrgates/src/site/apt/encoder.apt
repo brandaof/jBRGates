@@ -1,0 +1,79 @@
+Serialização de objetos
+
+ Um objeto somente é serializado se implementar a interface java.io.Serializable.
+ Não serão serializados os atributos com o modificador transient.
+
+ A serialização é feita com o método encode() da classe org.brandao.jbrgates.JSONEncoder.
+ O JSONEncoder segue a seguinte tabela:
+
+*-------------------------+----------------------------------------------------+
+| Java Type               | Json Type                                          |
+*-------------------------+----------------------------------------------------+
+| java.util.Map           | Object                                             |
+| Object                  |                                                    |
+*-------------------------+----------------------------------------------------+
+| Object[]                | Array                                              |
+| java.util.Collection    |                                                    |
+| int[], long[], double[],|                                                    |
+| float[], short[],       |                                                    |
+| boolean[], char[],      |                                                    |
+| byte[]                  |                                                    |
+*-------------------------+----------------------------------------------------+
+| char                    | String                                             |
+| java.lang.CharSequence  |                                                    |
+| java.lang.String        |                                                    |
+| java.net.URL            |                                                    |
+| java.net.URI            |                                                    |
+| java.lang.Character     |                                                    |
+| java.lang.Class         |                                                    |
+*-------------------------+----------------------------------------------------+
+| java.util.Locale        | String (language-country)                          |
+*-------------------------+----------------------------------------------------+
+| java.lang.Number        | number                                             |
+| int, long, double,      |                                                    |
+| float, short, byte      |                                                    |
+| java.math.BigDecimal    |                                                    |
+| java.math.BigInteger    |                                                    |
+*-------------------------+----------------------------------------------------+
+| java.util.Date          | number (milliseconds since 1970)                   |
+| java.sql.Time           |                                                    |
+| java.sql.Timestamp      |                                                    |
+| java.util.Calendar      |                                                    |
+*-------------------------+----------------------------------------------------+
+| boolean                 | true/false                                         |
+| java.lang.Boolean       |                                                    |
+*-------------------------+----------------------------------------------------+
+| null                    | null                                               |
+*-------------------------+----------------------------------------------------+
+
+ A classe JSONEncoder possui dois contrutores:
+ JSONEncoder(): Não é informado o OutputStream. O resultado da serialização é
+ obtida pelo método toString().
+ JSONEncoder( OutputStream ): o resultado da serialização é enviada para o objeto
+ OutputStream informado.
+
+ Exemplo:
+
+------
+public class MyObject implements Serializable{
+
+private int id;
+private String name;
+
+...
+
+}
+------
+
+------
+MyObject obj = new MyObject();
+...
+JSONEncoder jen = new JSONEncoder();
+jen.encode( obj );
+------
+
+ Saída:
+
+------
+ { "id": 1, "name" : "Jose", "class" : "MyObject" }
+------

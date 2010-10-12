@@ -1,0 +1,69 @@
+Deserialização de objetos
+
+ A deserialização nada mais é que converter um objeto JSON em um objeto JAVA.
+ Existe dois modos de deserializar:
+
+ 1- O tipo do objeto java é conhecido. Nesse caso, não é necessário informar
+ para que tipo deverá ser deserializado. O tipo é identificado por "class".
+
+ O exemplo a seguir deserializa um objeto do tipo MyObject.
+
+ Exemplo:
+
+------
+JSONDecoder jde = new JSONDecoder( "{ "id": 1, "name" : "Jose", "class" : "MyObject" }" );
+MyObject obj = (MyObject)jde.decode();
+------
+
+
+
+ 2- O tipo do objeto java não é conhecido. Nesse caso, é necessário informar para qual tipo deverá ser deserializado.
+
+ Exemplo:
+
+------
+JSONDecoder jde = new JSONDecoder( "{ "id": 1, "name" : "Jose" }" );
+MyObject obj = jde.decode( MyObject.class );
+------
+
+ O JSONDecoder segue a seguinte tabela:
+
+*-------------------------+----------------------------------------------------+
+| Json Type               | Java Type                                          |
+*-------------------------+----------------------------------------------------+
+| Object                  | java.util.Map                                      |
+|                         | Object                                             |
+*-------------------------+----------------------------------------------------+
+| Array                   | Object[]                                           |
+|                         | java.util.Collection                               |
+|                         | int[], long[], double[], float[], short[],         |
+|                         | boolean[], char[],                                 |
+|                         | byte[]                                             |
+*-------------------------+----------------------------------------------------+
+| String                  | char                                               |
+|                         | java.lang.CharSequence                             |
+|                         | java.lang.String                                   |
+|                         | java.net.URL                                       |
+|                         | java.net.URI                                       |
+|                         | java.lang.Character                                |
+|                         | java.lang.Class                                    |
+*-------------------------+----------------------------------------------------+
+|String (language-country)| java.util.Locale                                   |
+*-------------------------+----------------------------------------------------+
+| number                  | java.lang.Number                                   |
+|                         | int, long, double, float, short, byte              |
+|                         | java.math.BigDecimal                               |
+|                         | java.math.BigInteger                               |
+*-------------------------+----------------------------------------------------+
+|number                   | java.util.Date                                     |
+|(milliseconds since 1970)|                                                    |
+|                         | java.sql.Time                                      |
+|                         | java.sql.Timestamp                                 |
+|                         | java.util.Calendar                                 |
+*-------------------------+----------------------------------------------------+
+| true/false              | boolean                                            |
+|                         | java.lang.Boolean                                  |
+*-------------------------+----------------------------------------------------+
+| null                    | null                                               |
+*-------------------------+----------------------------------------------------+
+

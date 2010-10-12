@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1252"?>
+
+<!--
+    Document   : site.xml
+    Created on : 1 de Outubro de 2010, 13:31
+    Author     : Neto
+    Description:
+        Purpose of the document follows.
+-->
+
+<project  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns='http://maven.apache.org/DECORATION/1.0.0'
+   xsi:schemaLocation='http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd' name="JBRGates Json encoder and decoder">
+       
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-stylus-skin</artifactId>
+        <version>1.2</version>
+    </skin>
+
+    <bannerLeft>
+        <name>JBRGates Json encoder and decoder</name>
+        <src>images/jbrgates-titulo.png</src>
+        <href>http://jgates.sourceforge.net/</href>
+    </bannerLeft>
+
+    <bannerRight>
+        <name>Sourceforge</name>
+        <src>http://sflogo.sourceforge.net/sflogo.php?group_id=302366&amp;type=2</src>
+        <href>http://sourceforge.net</href>
+    </bannerRight>
+
+    <body>
+        <menu name="Geral">
+          <item name="Introdução" href="index.html"/>
+          <item name="Dependências" href="dependencies.html"/>
+          <item name="Licença" href="license.html"/>
+          <item name="Download" href="http://sourceforge.net/projects/jgates/files/"/>
+          <item name="Source Code" href="http://jgates.svn.sourceforge.net/viewvc/brutos/"/>
+          <item name="Maven" href="maven.html"/>
+        </menu>
+        <menu name="Documentação">
+          <item name="Encoder" href="encoder.html"/>
+          <item name="Decoder" href="decoder.html"/>
+          <item name="Javadoc" href="javadoc/"/>
+        </menu>
+    </body>
+</project>

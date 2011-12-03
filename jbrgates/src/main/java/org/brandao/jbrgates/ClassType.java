@@ -24,9 +24,9 @@ import java.util.Map;
  *
 * @author Afonso Brandao
  */
-final class ClassType {
+public final class ClassType {
     
-    private static Map<Object, Class> primitiveType;
+    private static final Map<Object, Class> primitiveType;
     
     static{
         primitiveType = new HashMap<Object, Class>();

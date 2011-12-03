@@ -162,6 +162,7 @@ public class JSONDecoder implements JSONConstants{
 
     private InputStream in;
     private FactoryBean factory;
+    private JSONContextConfiguration context;
 
     /**
      * Creates a default decoder.
@@ -169,7 +170,7 @@ public class JSONDecoder implements JSONConstants{
      */
     public JSONDecoder( String value ){
         this( new ByteArrayInputStream( value.getBytes() ),
-                new DefaultIOCFactoryBean() );
+                new DefaultIOCFactoryBean(), new DefaultJSONContext() );
     }
 
     /**
@@ -177,7 +178,7 @@ public class JSONDecoder implements JSONConstants{
      * @param in Input stream.
      */
     public JSONDecoder( InputStream in ){
-        this( in, new DefaultIOCFactoryBean() );
+        this( in, new DefaultIOCFactoryBean(), new DefaultJSONContext() );
     }
 
     /**
@@ -185,16 +186,19 @@ public class JSONDecoder implements JSONConstants{
      * @param in Input stream
      * @param factoryBean Bean factory.
      */
-    public JSONDecoder( InputStream in, FactoryBean factoryBean ){
+    public JSONDecoder( InputStream in, FactoryBean factoryBean, JSONContextConfiguration context ){
         this.in = in;
         this.factory = factoryBean;
-
+        this.context = context;
+        
         if( in == null )
             throw new NullPointerException( "input stream" );
 
         if( factory == null )
             throw new NullPointerException( "bean factory" );
 
+        if( context == null )
+            throw new NullPointerException( "context" );
     }
 
     /**
@@ -381,21 +385,30 @@ public class JSONDecoder implements JSONConstants{
 
     private Object toValue( String value, Type type ){
         try{
-            Class wrapper = ClassType.getWrapper( (Class)type );
+            //Class wrapper = ClassType.getWrapper( (Class)type );
+
             if( value == null )
                 return null;
-            else
+
+            JSONConverter converter = context.getConverter((Class) type);
+
+            if( converter == null )
+                converter = context.getDefaultConverter();
+            
+            return converter.getObject(value);
+            
+            /*
             if( type == null || CharSequence.class.isAssignableFrom(wrapper) || type == Object.class )
-                return value;
+                return context.getConverter(String.class).getObject(value);//return value;
             else
             if( BigDecimal.class.isAssignableFrom(wrapper) )
-                return new BigDecimal( value );
+                return context.getConverter(BigDecimal.class).getObject(value);//return new BigDecimal( value );
             else
             if( BigInteger.class.isAssignableFrom(wrapper) )
-                return new BigInteger( value, 10 );
+                return context.getConverter(BigInteger.class).getObject(value);//return new BigInteger( value, 10 );
             else
             if( URI.class.isAssignableFrom(wrapper) )
-                return new URI( value );
+                return context.getConverter(URI.class).getObject(value);//return new URI( value );
             else
             if( URL.class.isAssignableFrom(wrapper) )
                 return new URL( value );
@@ -412,6 +425,10 @@ public class JSONDecoder implements JSONConstants{
                 return wrapper
                     .getMethod( "valueOf" , String.class )
                         .invoke( type , value);
+            */
+        }
+        catch( JSONException e ){
+            throw e;
         }
         catch( Exception e ){
             throw new JSONException( e );
@@ -437,6 +454,10 @@ public class JSONDecoder implements JSONConstants{
             return ((ParameterizedType)type).getActualTypeArguments();
         else
             return new Class[]{String.class, Object.class};
+    }
+
+    public JSONContextConfiguration getContext() {
+        return context;
     }
 
 }

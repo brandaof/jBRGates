@@ -46,7 +46,7 @@ public class JSONDecoderTest extends TestCase implements Test{
 
     public void testFactoryBean() throws IOException{
         try{
-            JSONDecoder jse = new JSONDecoder( new ByteArrayInputStream( new byte[]{} ), null );
+            JSONDecoder jse = new JSONDecoder( new ByteArrayInputStream( new byte[]{} ), null, new DefaultJSONContext() );
         }
         catch( NullPointerException e ){
             return;
@@ -56,7 +56,7 @@ public class JSONDecoderTest extends TestCase implements Test{
 
     public void testDefault() throws IOException{
         try{
-            JSONDecoder jse = new JSONDecoder( null, null );
+            JSONDecoder jse = new JSONDecoder( null, null, null );
         }
         catch( NullPointerException e ){
             return;

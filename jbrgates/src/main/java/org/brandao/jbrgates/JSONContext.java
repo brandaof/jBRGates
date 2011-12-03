@@ -18,27 +18,17 @@
 
 package org.brandao.jbrgates;
 
-import java.io.IOException;
-import junit.framework.Test;
-import junit.framework.TestCase;
-
 /**
  *
- * @author Afonso Brandao
+ * @author Brandao
+ * @version 1.1
  */
-public class JSONEncoderTest extends TestCase implements Test{
+public interface JSONContext {
 
-    public JSONEncoderTest(){
-        super();
-    }
+    String encode(Object value) throws JSONException;
 
-    public void testNullPointerException() throws IOException{
-        try{
-            JSONEncoder jse = new JSONEncoder( null, null );
-            fail( "expected NullPointerException" );
-        }
-        catch( NullPointerException e ){
-        }
-    }
+    Object decode(String value) throws JSONException;
 
+    Object decode(String value, Class<?> type) throws JSONException;
+    
 }

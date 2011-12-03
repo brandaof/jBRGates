@@ -15,30 +15,25 @@
  *
  */
 
+package org.brandao.jbrgates.converters;
 
-package org.brandao.jbrgates;
-
-import java.io.IOException;
-import junit.framework.Test;
-import junit.framework.TestCase;
+import java.math.BigInteger;
+import org.brandao.jbrgates.JSONConverter;
+import org.brandao.jbrgates.JSONException;
 
 /**
  *
- * @author Afonso Brandao
+ * @author Brandao
+ * @version 1.1
  */
-public class JSONEncoderTest extends TestCase implements Test{
+public class BigIntegerConverter implements JSONConverter{
 
-    public JSONEncoderTest(){
-        super();
+    public StringBuffer getJsonObject(Object value) throws JSONException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void testNullPointerException() throws IOException{
-        try{
-            JSONEncoder jse = new JSONEncoder( null, null );
-            fail( "expected NullPointerException" );
-        }
-        catch( NullPointerException e ){
-        }
+    public Object getObject(Object value) throws JSONException {
+        return new BigInteger(String.valueOf(value),10);
     }
 
 }

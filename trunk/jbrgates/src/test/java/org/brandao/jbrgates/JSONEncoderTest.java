@@ -34,7 +34,7 @@ public class JSONEncoderTest extends TestCase implements Test{
 
     public void testNullPointerException() throws IOException{
         try{
-            JSONEncoder jse = new JSONEncoder( null );
+            JSONEncoder jse = new JSONEncoder( null, null );
             fail( "expected NullPointerException" );
         }
         catch( NullPointerException e ){

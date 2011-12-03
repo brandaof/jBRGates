@@ -25,7 +25,7 @@ import java.util.Map;
  *
  * @author Afonso Brandao
  */
-class LocaleUtils {
+public class LocaleUtils {
 
     private static Map<String, Locale> locales;
 

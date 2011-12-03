@@ -159,6 +159,7 @@ public class JSONEncoder  implements JSONConstants{
     private OutputStream out;
     private StringBuffer buffer;
     private Map<Object,StringBuffer> cache;
+    private JSONContextConfiguration context;
 
     /**
      * Creates a default encoder.
@@ -166,14 +167,14 @@ public class JSONEncoder  implements JSONConstants{
      * by the toString().
      */
     public JSONEncoder(){
-        this( new ByteArrayOutputStream() );
+        this( new ByteArrayOutputStream(), new DefaultJSONContext() );
     }
 
     /**
      * Creates a new encoder.
      * @param out Output stream.
      */
-    public JSONEncoder( OutputStream out ){
+    public JSONEncoder( OutputStream out, JSONContextConfiguration context ){
 
         if( out == null )
             throw new NullPointerException();
@@ -445,5 +446,9 @@ public class JSONEncoder  implements JSONConstants{
 
     public void flush() throws IOException{
         out.flush();
+    }
+
+    public JSONContextConfiguration getContext() {
+        return context;
     }
 }

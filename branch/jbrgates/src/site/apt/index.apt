@@ -1,0 +1,10 @@
+JBRGates
+
+* O que é?
+
+ O JBRGates é uma pequena biblioteca Java que serializa objetos em JSON sem enviar
+ o modelo de objeto. Além de ter suporte a inversão de controle (IOC).
+ O princípio básico da serialização é que o objeto define como ele deve ser serializado,
+ evitando assim a perda de tempo na programação da serialização do objeto.
+
+

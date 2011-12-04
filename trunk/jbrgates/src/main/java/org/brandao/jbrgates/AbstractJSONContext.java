@@ -16,9 +16,22 @@
  */
 package org.brandao.jbrgates;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
+import org.brandao.jbrgates.converters.BigDecimalConverter;
+import org.brandao.jbrgates.converters.BigIntegerConverter;
+import org.brandao.jbrgates.converters.CharacterConverter;
+import org.brandao.jbrgates.converters.ClassConverter;
 import org.brandao.jbrgates.converters.DefaultConverter;
+import org.brandao.jbrgates.converters.LocaleConverter;
+import org.brandao.jbrgates.converters.StringConverter;
+import org.brandao.jbrgates.converters.URIConverter;
+import org.brandao.jbrgates.converters.URLConverter;
 
 /**
  *
@@ -35,6 +48,18 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
         this.converters = new LinkedHashMap<Class,JSONConverter>();
         this.factory = new DefaultIOCFactoryBean();
         this.defaultConverter = new DefaultConverter();
+        loadConverters();
+    }
+
+    private void loadConverters(){
+        addConverter(BigDecimal.class, new BigDecimalConverter());
+        addConverter(BigInteger.class, new BigIntegerConverter());
+        addConverter(Character.class, new CharacterConverter());
+        addConverter(Class.class, new ClassConverter());
+        addConverter(Locale.class, new LocaleConverter());
+        addConverter(String.class, new StringConverter());
+        addConverter(URI.class, new URIConverter());
+        addConverter(URL.class, new URLConverter());
     }
 
     public String encode(Object value) throws JSONException {

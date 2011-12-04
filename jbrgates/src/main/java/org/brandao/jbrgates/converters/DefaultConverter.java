@@ -34,6 +34,10 @@ public class DefaultConverter implements JSONConverter{
 
     public Object getObject(Object value) throws JSONException {
         try{
+
+            if( value instanceof String )
+                return String.valueOf(value);
+
             Class wrapper = ClassType.getWrapper( value.getClass() );
             return wrapper
                         .getMethod( "valueOf" , String.class )

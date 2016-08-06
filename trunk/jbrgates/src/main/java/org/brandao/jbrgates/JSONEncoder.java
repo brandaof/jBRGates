@@ -140,7 +140,7 @@ import java.util.Map;
  *   </tr>
  *   <tr>
  *     <td>java.util.Date</td>
- *     <td rowspan="4">yyyy-MM-dd hh:mm:ss (ex: 2016-08-06 12:30:00)</td>
+ *     <td rowspan="4">yyyy-MM-dd'T'hh:mm:ss.sss'Z' (ex: 2016-08-06T12:30:00.000Z)</td>
  *   </tr>
  *   <tr>
  *     <td>java.sql.Time</td>

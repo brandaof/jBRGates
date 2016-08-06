@@ -18,6 +18,7 @@
 package org.brandao.jbrgates;
 
 /**
+ * Default json context.
  * 
  * @author Brandao
  * @version 1.1

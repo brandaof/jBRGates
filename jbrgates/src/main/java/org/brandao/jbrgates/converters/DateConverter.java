@@ -17,7 +17,10 @@
 
 package org.brandao.jbrgates.converters;
 
-import org.brandao.jbrgates.ClassType;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONException;
@@ -27,35 +30,31 @@ import org.brandao.jbrgates.JSONException;
  * @author Brandao
  * @version 1.1
  */
-public class DefaultConverter implements JSONConverter{
+public class DateConverter implements JSONConverter{
 
-	private Class<?> wrapper;
-	
-	public DefaultConverter(Class<?> type){
-		this.wrapper = ClassType.getWrapper(type);
-	}
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	
     public StringBuffer getJsonObject(Object value) throws JSONException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	try{
+	    	Date date = (Date)value;
+	        return new StringBuffer().append("\"").append(sdf.format(date)).append("\"");
+    	}
+    	catch(Throwable e){
+    		throw new JSONException(e);
+    	}
     }
 
     public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
-        try{
-
-        	/*
-            if( value instanceof String )
-                return String.valueOf(value);
-        	 */
-        	
-            //Class wrapper = ClassType.getWrapper( value.getClass() );
-        	
-            return wrapper
-                        .getMethod( "valueOf" , String.class )
-                            .invoke( wrapper , value);
-        }
-        catch( Exception e ){
-            throw new JSONException(e);
-        }
+    	try{
+    		String strValue = (String)value;
+	        Date dta        = (Date)factory.getInstance(baseType);
+	        Date date       = sdf.parse(strValue);
+	        dta.setTime(date.getTime());
+	        return dta;
+    	}
+    	catch(Throwable e){
+    		throw new JSONException(e);
+    	}
     }
 
 }

@@ -37,6 +37,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import org.brandao.jbrgates.converters.CalendarConverter;
+import org.brandao.jbrgates.converters.DateConverter;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 
@@ -348,12 +352,25 @@ public class JSONDecoderArrayTest extends TestCase implements Test{
     }
 
     public void testDate() throws IOException{
-        Date[] expected = new Date[]{ new Date(), new Date() };
+    	DateConverter cv = new DateConverter();
+    	
+    	Date[] expected = new Date[]{ 
+        		(Date)cv.getObject(
+        				cv.getJsonObject(new Date(System.currentTimeMillis())).toString().replace("\"", ""), 
+						new DefaultIOCFactoryBean(), 
+						Date.class
+				), 
+        		(Date)cv.getObject(
+        				cv.getJsonObject(new Date(System.currentTimeMillis())).toString().replace("\"", ""), 
+        				new DefaultIOCFactoryBean(), 
+        				Date.class
+				) 
+    		};
 
         JSONDecoder jse = new JSONDecoder( String.format(
-                    "[ %d, %d ]",
-                    expected[0].getTime(),
-                    expected[1].getTime()
+	                "[ %s, %s ]",
+	                new DateConverter().getJsonObject(expected[0]),
+	                new DateConverter().getJsonObject(expected[1])
                 ) );
 
         Date[] result = jse.decode( Date[].class );
@@ -363,11 +380,25 @@ public class JSONDecoderArrayTest extends TestCase implements Test{
     }
 
     public void testTime() throws IOException{
-        Time[] expected = new Time[]{ new Time( (new Date()).getTime() ), new Time( (new Date()).getTime() ) };
+    	DateConverter cv = new DateConverter();
+    	
+    	Time[] expected = new Time[]{ 
+        		(Time)cv.getObject(
+        				cv.getJsonObject(new Time(new Date().getTime())).toString().replace("\"", ""), 
+        				new DefaultIOCFactoryBean(), 
+        				Time.class
+				), 
+        		(Time)cv.getObject(
+        				cv.getJsonObject(new Time(new Date().getTime())).toString().replace("\"", ""), 
+        				new DefaultIOCFactoryBean(), 
+        				Time.class
+				) 
+    		};
+
         JSONDecoder jse = new JSONDecoder( String.format(
-                    "[ %d, %d ]",
-                    expected[0].getTime(),
-                    expected[1].getTime()
+	                "[ %s, %s ]",
+	                new DateConverter().getJsonObject(expected[0]),
+	                new DateConverter().getJsonObject(expected[1])
                 ) );
 
         Time[] result = jse.decode( Time[].class );
@@ -377,12 +408,21 @@ public class JSONDecoderArrayTest extends TestCase implements Test{
     }
 
     public void testTimestamp() throws IOException{
-        Timestamp[] expected = new Timestamp[]{ new Timestamp( (new Date()).getTime() ), new Timestamp( (new Date()).getTime() ) };
-        JSONDecoder jse = new JSONDecoder( String.format(
-                    "[ %d, %d ]",
-                    expected[0].getTime(),
-                    expected[1].getTime()
-                ) );
+    	DateConverter cv = new DateConverter();
+    	
+        Timestamp[] expected = new Timestamp[]{ 
+        		(Timestamp)cv.getObject(
+        				cv.getJsonObject(new Timestamp(System.currentTimeMillis())).toString().replace("\"", ""), new DefaultIOCFactoryBean(), Timestamp.class), 
+        		(Timestamp)cv.getObject(
+        				cv.getJsonObject(new Timestamp(System.currentTimeMillis())).toString().replace("\"", ""), new DefaultIOCFactoryBean(), Timestamp.class) 
+    		};
+        String json = String.format(
+                "[ %s, %s ]",
+                new DateConverter().getJsonObject(expected[0]),
+                new DateConverter().getJsonObject(expected[1])
+            );
+        
+        JSONDecoder jse = new JSONDecoder(json);
 
         Timestamp[] result = jse.decode( Timestamp[].class );
 
@@ -391,12 +431,29 @@ public class JSONDecoderArrayTest extends TestCase implements Test{
     }
 
     public void testCalendar() throws IOException{
-        Calendar[] expected = new Calendar[]{ new GregorianCalendar(), new GregorianCalendar() };
-        JSONDecoder jse = new JSONDecoder( String.format(
-                    "[ %d, %d ]",
-                    expected[0].getTime().getTime(),
-                    expected[1].getTime().getTime()
-                ) );
+    	
+    	CalendarConverter cv = new CalendarConverter();
+    	
+    	GregorianCalendar[] expected = new GregorianCalendar[]{ 
+        		(GregorianCalendar)cv.getObject(
+        				cv.getJsonObject(
+        						new GregorianCalendar()).toString().replace("\"", ""), 
+        						new DefaultIOCFactoryBean(), 
+        						GregorianCalendar.class), 
+        		(GregorianCalendar)cv.getObject(
+        				cv.getJsonObject(
+        						new GregorianCalendar()).toString().replace("\"", ""), 
+        						new DefaultIOCFactoryBean(), 
+        						GregorianCalendar.class) 
+    		};
+        String json = String.format(
+                "[ %s, %s ]",
+                new CalendarConverter().getJsonObject(expected[0]),
+                new CalendarConverter().getJsonObject(expected[1])
+            );
+
+        
+        JSONDecoder jse = new JSONDecoder(json);
 
         Calendar[] result = jse.decode( Calendar[].class );
 

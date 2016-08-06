@@ -22,15 +22,10 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URI;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -253,13 +248,24 @@ public class JSONDecoder implements JSONConstants{
 
     private Object decoder0( Object data, Type clazz ) throws Exception{
         Class clazzType = getClass( clazz );
-
+        
+        if(clazzType == null)
+        	clazzType = Object.class;
+        
         if( data == null )
             return null;
         else
         if( data instanceof List ){
             return array( (List<Object>)data, clazz );
         }
+        else
+    	if( clazzType != Object.class && clazzType.isAssignableFrom( Map.class ) ){
+            return getMap( (Map)data, clazz );
+    	}
+    	else{
+            return getObject( data, clazz );
+    	}
+        /*
         else
         if( clazz != null ){
             if( Date.class.isAssignableFrom( clazzType ) )
@@ -273,17 +279,18 @@ public class JSONDecoder implements JSONConstants{
             else
             if( clazzType.isEnum() )
                 return objectEnum( data, clazzType );
+            
         }
-
-        return getObject( data, clazz );
+        */
 
     }
 
+    /*
     private Object objectEnum( Object data, Class clazz ){
         int index = (Integer)toValue( (String)data, Integer.class );
         return clazz.getEnumConstants()[index];
     }
-
+    
     private Object objectDate( Object data, Class clazz ){
         if( Date.class.isAssignableFrom( clazz ) ){
             Date dta = (Date) factory.getInstance( clazz );
@@ -300,7 +307,8 @@ public class JSONDecoder implements JSONConstants{
         else
             throw new JSONException( "invalid date" );
     }
-
+    */
+    
     private Object array( List<Object> data, Type type ) throws Exception{
         
         Class classType = getClass( type );
@@ -392,40 +400,21 @@ public class JSONDecoder implements JSONConstants{
 
             JSONConverter converter = context.getConverter((Class) type);
 
-            if( converter == null )
+            if(converter == null)
                 converter = context.getDefaultConverter();
-            
-            return converter.getObject(value);
+
+            /*
+            if(converter == null){
+            	throw new JSONException("invalid type: " + type);
+            }
+            */
             
             /*
-            if( type == null || CharSequence.class.isAssignableFrom(wrapper) || type == Object.class )
-                return context.getConverter(String.class).getObject(value);//return value;
-            else
-            if( BigDecimal.class.isAssignableFrom(wrapper) )
-                return context.getConverter(BigDecimal.class).getObject(value);//return new BigDecimal( value );
-            else
-            if( BigInteger.class.isAssignableFrom(wrapper) )
-                return context.getConverter(BigInteger.class).getObject(value);//return new BigInteger( value, 10 );
-            else
-            if( URI.class.isAssignableFrom(wrapper) )
-                return context.getConverter(URI.class).getObject(value);//return new URI( value );
-            else
-            if( URL.class.isAssignableFrom(wrapper) )
-                return new URL( value );
-            else
-            if( Locale.class.isAssignableFrom(wrapper) )
-                return LocaleUtils.getLocale(value);
-            else
-            if( type == Class.class )
-                return ClassType.get(value);
-            else
-            if( Character.class == wrapper )
-                return value.length() == 0? null : value.charAt(0);
-            else
-                return wrapper
-                    .getMethod( "valueOf" , String.class )
-                        .invoke( type , value);
+            if(converter == null)
+                converter = context.getDefaultConverter();
             */
+            
+            return converter.getObject(value, this.factory, (Class)type);
         }
         catch( JSONException e ){
             throw e;

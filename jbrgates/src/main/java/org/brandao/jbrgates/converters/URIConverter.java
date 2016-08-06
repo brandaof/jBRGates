@@ -19,6 +19,8 @@ package org.brandao.jbrgates.converters;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONException;
 
@@ -33,7 +35,7 @@ public class URIConverter implements JSONConverter{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Object getObject(Object value) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
         try{
             return new URI(String.valueOf(value));
         }catch (URISyntaxException ex) {

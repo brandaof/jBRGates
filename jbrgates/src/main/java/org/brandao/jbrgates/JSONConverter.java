@@ -26,6 +26,6 @@ public interface JSONConverter {
 
     StringBuffer getJsonObject(Object value) throws JSONException;
 
-    Object getObject(Object value) throws JSONException;
+    Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException;
 
 }

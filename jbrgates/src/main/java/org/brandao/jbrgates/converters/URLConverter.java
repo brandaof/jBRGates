@@ -18,6 +18,8 @@
 package org.brandao.jbrgates.converters;
 
 import java.net.URL;
+
+import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONException;
 
@@ -32,7 +34,7 @@ public class URLConverter implements JSONConverter{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Object getObject(Object value) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
         try{
             return new URL(String.valueOf(value));
         }catch (Exception ex) {

@@ -17,6 +17,7 @@
 
 package org.brandao.jbrgates.converters;
 
+import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONException;
 
@@ -31,7 +32,7 @@ public class CharacterConverter implements JSONConverter{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Object getObject(Object value) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
         String val = String.valueOf(value);
         return val.length() == 0? null : val.charAt(0);
     }

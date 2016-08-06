@@ -18,22 +18,51 @@
 package org.brandao.jbrgates;
 
 /**
- *
+ * Defines the object that provides the necessary 
+ * resources to configure the context.
+ * 
  * @author Brandao
+ * 
  * @version 1.1
  */
 public interface JSONContextConfiguration {
 
-    void addConverter(Class type, JSONConverter converter);
+	/**
+	 * Adds converter.
+	 * @param type Type
+	 * @param converter Converter.
+	 */
+    void addConverter(Class<?> type, JSONConverter converter);
 
-    JSONConverter getConverter(Class type);
+    /**
+     * Gets a converter.
+     * @param type Type.
+     * @return Converter.
+     */
+    JSONConverter getConverter(Class<?> type);
 
+    /**
+     * Gets the default converter.
+     * @return Converter.
+     */
     JSONConverter getDefaultConverter();
 
-    void removeConverter(Class type);
+    /**
+     * Remove a converter.
+     * @param type Type.
+     */
+    void removeConverter(Class<?> type);
 
+    /**
+     * Sets the bean factory.
+     * @param factory Factory.
+     */
     void setFactoryBean( FactoryBean factory );
 
+    /**
+     * Gets the bean factory.
+     * @return Factory.
+     */
     FactoryBean getFactoryBean();
     
 }

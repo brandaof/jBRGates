@@ -33,11 +33,11 @@ public class ClassConverter implements JSONConverter{
     public StringBuffer getJsonObject(Object value) throws JSONException {
     	return 
 			new StringBuffer(JSONEncoder.QUOTE)
-    			.append(((Class)value).getName())
+    			.append(((Class<?>)value).getName())
     		.append(JSONEncoder.QUOTE);
     }
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         try{
             return ClassType.get(String.valueOf(value));
         }

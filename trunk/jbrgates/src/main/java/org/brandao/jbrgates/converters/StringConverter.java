@@ -75,7 +75,7 @@ public class StringConverter implements JSONConverter{
         return buf;
     }
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         if(value instanceof String)
             return String.valueOf(value);
         else

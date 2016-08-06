@@ -60,7 +60,7 @@ import java.lang.reflect.Type;
  *     String jsonObject = context.encode(javaObject);
  *     
  * Output:
- * {"field1": "2016-08-06 00:00:00", "field2": "VALUE1"}
+ * {"field1": "2016-08-06T12:30:00.000Z", "field2": "VALUE1"}
  * </pre>
  * 
  * <p>The method {@link #decode(Object)} convert a json object to java object.</p>

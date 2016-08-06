@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -35,32 +34,30 @@ import junit.framework.TestCase;
  */
 public class JSONDecoderDateTest extends TestCase implements Test{
 
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("'\"'yyyy-MM-dd hh:mm:ss'\"'");
-	
     public JSONDecoderDateTest(){
         super();
     }
 
     public void testDate() throws IOException, ParseException{
         Date date = new Date();
-        date = sdf.parse(sdf.format(date));
-        JSONDecoder jse = new JSONDecoder( sdf.format(date) );
+        date = DateTestHelper.dateFormat.parse(DateTestHelper.dateFormat.format(date));
+        JSONDecoder jse = new JSONDecoder( DateTestHelper.dateFormat.format(date) );
         Date result = jse.decode( Date.class );
         assertEquals( date.getTime(), result.getTime() );
     }
 
     public void testTime() throws IOException, ParseException{
         Time time = new Time(System.currentTimeMillis());
-        time = new Time(sdf.parse(sdf.format(time)).getTime());
-        JSONDecoder jse = new JSONDecoder(sdf.format(time));
+        time = new Time(DateTestHelper.dateFormat.parse(DateTestHelper.dateFormat.format(time)).getTime());
+        JSONDecoder jse = new JSONDecoder(DateTestHelper.dateFormat.format(time));
         Time result = jse.decode( Time.class );
         assertEquals( time.getTime(), result.getTime() );
     }
 
     public void testTimestamp() throws IOException, ParseException{
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        time = new Timestamp(sdf.parse(sdf.format(time)).getTime());
-        JSONDecoder jse = new JSONDecoder(sdf.format(time));
+        time = new Timestamp(DateTestHelper.dateFormat.parse(DateTestHelper.dateFormat.format(time)).getTime());
+        JSONDecoder jse = new JSONDecoder(DateTestHelper.dateFormat.format(time));
         Timestamp result = jse.decode( Timestamp.class );
         assertEquals( time.getTime(), result.getTime() );
     }
@@ -68,11 +65,11 @@ public class JSONDecoderDateTest extends TestCase implements Test{
     public void testCalendar() throws IOException, ParseException{
         Calendar time = new GregorianCalendar();
         time.setTime(
-        		sdf.parse(
-    				sdf.format(time.getTime())
+        		DateTestHelper.dateFormat.parse(
+        				DateTestHelper.dateFormat.format(time.getTime())
 				)
 		);
-        JSONDecoder jse = new JSONDecoder(sdf.format(time.getTime()) );
+        JSONDecoder jse = new JSONDecoder(DateTestHelper.dateFormat.format(time.getTime()) );
         Calendar result = jse.decode( Calendar.class );
         assertEquals( time.getTime(), result.getTime() );
     }

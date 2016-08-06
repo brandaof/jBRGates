@@ -33,7 +33,7 @@ import org.brandao.jbrgates.JSONException;
  */
 public class CalendarConverter implements JSONConverter{
 
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.sssXXX");
 	
     public StringBuffer getJsonObject(Object value) throws JSONException {
     	try{

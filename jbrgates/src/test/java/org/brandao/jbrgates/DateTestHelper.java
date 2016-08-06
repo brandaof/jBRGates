@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DateTestHelper {
 
-	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("'\"'yyyy-MM-dd hh:mm:ss'\"'");
+	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("'\"'yyyy-MM-dd'T'hh:mm:ss.sssXXX'\"'");
 	
 	public static final Date testDateValue;
 

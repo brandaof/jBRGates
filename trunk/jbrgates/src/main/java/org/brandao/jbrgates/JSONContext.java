@@ -18,9 +18,11 @@
 
 package org.brandao.jbrgates;
 
+import java.lang.reflect.Type;
+
 /**
  * Defines the object that provides the necessary 
- * resources to encode and decode a Java object to Json.
+ * resources to encode and decode a Json objects.
  * 
  * <p>The method {@link #encode(Object)} convert a java object to json object.</p>
  * <pre>
@@ -86,7 +88,7 @@ package org.brandao.jbrgates;
 public interface JSONContext {
 
 	/**
-	 * Encode a object to Json.
+	 * Encodes an object into json.
 	 * @param value Object.
 	 * @return Json.
 	 * @throws JSONException Thrown if a problem occurs when encoding.
@@ -94,7 +96,7 @@ public interface JSONContext {
     String encode(Object value) throws JSONException;
 
     /**
-     * Decode a Json object.
+     * Decodes a JSON object.
      * @param value Json object.
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
@@ -102,12 +104,30 @@ public interface JSONContext {
     Object decode(String value) throws JSONException;
 
     /**
-     * Decode a JSON object to a specific type.
+     * Decode a JSON object to specific type.
      * @param value Json object
      * @param type Type.
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
      */
     Object decode(String value, Class<?> type) throws JSONException;
+
+    /**
+     * Decode a JSON object to specific type.
+     * @param value Json object
+     * @param type Type.
+     * @return Object.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    Object decode( String value, Type type ) throws JSONException;
+    
+    /**
+     * Decodes a JSON object in a specific collection type.
+     * @param collectionType Collection type.
+     * @param entityType Entity type.
+     * @return Collection.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    Object decodeCollection( String value, Type collectionType,	Type entityType) throws JSONException;
     
 }

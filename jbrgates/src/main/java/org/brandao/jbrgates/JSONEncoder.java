@@ -213,18 +213,18 @@ public class JSONEncoder  implements JSONConstants{
      * @param clazz Class type.
      * @throws IOException Thrown if a problem occurs when encoding.
      */
-    public void encode( Object obj, Class clazz ) throws IOException {
+    public void encode( Object obj, Class<?> clazz ) throws IOException {
         innerEncoder( obj, clazz );
     }
 
-    private void innerEncoder( Object obj, Class clazz ) throws IOException{
+    private void innerEncoder( Object obj, Class<?> clazz ) throws IOException{
         this.buffer = new StringBuffer();
         cache.clear();
         encoderObject( obj, clazz );
         out.write( buffer.toString().getBytes() );
     }
     
-    private void encoderObject( Object obj, Class clazz ) throws IOException{
+    private void encoderObject( Object obj, Class<?> clazz ) throws IOException{
         
         if( obj instanceof Serializable ){
             encoderObject0( clazz == null? obj.getClass() : clazz, obj );
@@ -242,7 +242,7 @@ public class JSONEncoder  implements JSONConstants{
             innerWrite( NULL );
         else
         if( obj instanceof Collection ){
-            collectionEncoder( (Collection)obj );
+            collectionEncoder( (Collection<?>)obj );
         }
         else
         if( clazz.isArray() ){
@@ -250,7 +250,7 @@ public class JSONEncoder  implements JSONConstants{
         }
         else
         if( obj instanceof Map ){
-            mapEncoder( (Map<Object,Object>)obj );
+            mapEncoder( (Map<?,?>)obj );
         }
         else{
         	JSONConverter converter = this.context.getConverter(clazz);
@@ -326,7 +326,7 @@ public class JSONEncoder  implements JSONConstants{
          */
     }
 
-    private void encoderObject1( Object obj, Class clazz ) throws IOException{
+    private void encoderObject1( Object obj, Class<?> clazz ) throws IOException{
         if( cache.containsKey( obj ) ){
             StringBuffer s = cache.get( obj );
             innerWrite( s != null? s : NULL );
@@ -382,7 +382,7 @@ public class JSONEncoder  implements JSONConstants{
         }
     }
 
-    private void collectionEncoder( Collection collection ) throws IOException{
+    private void collectionEncoder( Collection<?> collection ) throws IOException{
         arrayEncoder( collection.toArray() );
     }
 
@@ -400,7 +400,7 @@ public class JSONEncoder  implements JSONConstants{
         innerWrite( END_ARRAY );
     }
 
-    private void mapEncoder( Map<Object,Object> objects ) throws IOException{
+    private void mapEncoder( Map<?,?> objects ) throws IOException{
         innerWrite( START_OBJECT );
         Object[] keys = objects.keySet().toArray();
 
@@ -417,6 +417,7 @@ public class JSONEncoder  implements JSONConstants{
         innerWrite( END_OBJECT );
     }
 
+    /*
     private void enumEncoder( Object obj ) throws IOException{
         encoderObject0( Integer.class, ((Enum)obj).ordinal() );
     }
@@ -450,7 +451,7 @@ public class JSONEncoder  implements JSONConstants{
                 buf.append("\\r");
                 break;
             default:
-                if( ((ch >= 0x0020) && (ch <= 0x007e))/* || Character.isUnicodeIdentifierPart( tmp.codePointAt( i ) )*/ )
+                if( ((ch >= 0x0020) && (ch <= 0x007e))
                     buf.append( tmp.charAt( i ) );
                 else{
                     String hex = "000" + Integer.toHexString( ch );
@@ -463,15 +464,18 @@ public class JSONEncoder  implements JSONConstants{
         innerWrite( buf );
         innerWrite( QUOTE );
     }
-
+    */
+    
     private void innerWrite( StringBuffer value ) throws IOException{
         this.buffer.append( value );
     }
 
+    /*
     private void innerWrite( String value ) throws IOException{
         this.buffer.append( value );
     }
-
+    */
+    
     public String toString(){
         if( out instanceof ByteArrayOutputStream )
             return new String( ((ByteArrayOutputStream)out).toByteArray() );

@@ -32,11 +32,11 @@ public class EnumConverter implements JSONConverter{
     public StringBuffer getJsonObject(Object value) throws JSONException {
     	return 
 			new StringBuffer(JSONEncoder.QUOTE)
-    			.append(((Enum)value).name())
+    			.append(((Enum<?>)value).name())
     		.append(JSONEncoder.QUOTE);
     }
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         try{
             return EnumUtil.valueOf(baseType, (String)value);
         }

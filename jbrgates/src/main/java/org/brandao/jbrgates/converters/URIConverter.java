@@ -30,7 +30,7 @@ import org.brandao.jbrgates.JSONException;
  */
 public class URIConverter extends StringConverter{
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         try{
             return new URI(String.valueOf(value));
         }catch (URISyntaxException ex) {

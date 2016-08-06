@@ -34,7 +34,7 @@ public class BigDecimalConverter implements JSONConverter{
         return new StringBuffer(((BigDecimal)value).toString());
     }
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         return new BigDecimal(String.valueOf(value));
     }
 

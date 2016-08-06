@@ -39,7 +39,7 @@ public class DefaultConverter implements JSONConverter{
     	return 	new StringBuffer(String.valueOf(value));
     }
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         try{
             return wrapper
                         .getMethod( "valueOf" , String.class )

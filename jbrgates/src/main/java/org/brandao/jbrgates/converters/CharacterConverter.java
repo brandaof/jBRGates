@@ -34,7 +34,7 @@ public class CharacterConverter extends StringConverter{
     	return value.equals('\u0000')? EMPTY_STRING : super.getJsonObject(value);
     }
 	
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         String val = String.valueOf(value);
         return val.length() == 0? '\u0000' : val.charAt(0);
     }

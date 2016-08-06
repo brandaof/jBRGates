@@ -47,7 +47,7 @@ public class DateConverter implements JSONConverter{
     	}
     }
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
     	try{
     		String strValue = (String)value;
 	        Date dta        = (Date)factory.getInstance(baseType);

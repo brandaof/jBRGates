@@ -29,7 +29,7 @@ import org.brandao.jbrgates.JSONException;
  */
 public class URLConverter extends StringConverter{
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
         try{
             return new URL(String.valueOf(value));
         }catch (Exception ex) {

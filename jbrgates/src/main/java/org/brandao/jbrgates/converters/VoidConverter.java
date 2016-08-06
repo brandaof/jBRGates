@@ -36,7 +36,7 @@ public class VoidConverter implements JSONConverter{
     		.append(JSONEncoder.QUOTE);
     }
 
-    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException {
     	return Void.class;
     }
 

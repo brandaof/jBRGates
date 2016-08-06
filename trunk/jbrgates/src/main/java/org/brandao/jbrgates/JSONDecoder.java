@@ -31,9 +31,11 @@ import java.util.Set;
  * This is a json decoder.
  * <p>If not informed "class", the method decode(Class&lt;T&gt; type) should be used.</p>
  * 
- * Ex1:<br>
- * <b>Class:</b><br>
  * <pre>
+ * Ex1:
+ * 
+ * Class:
+ * 
  * public class MyObject implements Serializable{
  *   private int id;
  *   private String name;
@@ -41,22 +43,21 @@ import java.util.Set;
  *   ...
  *
  * }
- * </pre>
  *
- * <b>Example code:</b><br>
- * <pre>
+ * code:
  * ...
  * JSONDecoder jde = new JSONDecoder( "{ "id": 1, "name" : "Jose", "class" : "MyObject" }" );
  * MyObject obj = (MyObject)jde.decode();
  * </pre>
- *
- * Ex2:<br>
+ * 
  * <pre>
+ * 
+ * Ex2:
  * ...
  * JSONDecoder jde = new JSONDecoder( "{ "id": 1, "name" : "Jose" }" );
  * MyObject obj = jde.decode( MyObject.class );
  * </pre>
- *
+ * 
  * <h4>Summary of decoding rules for json type into java type</h4>
  *
  * <table border="1" cellpadding="1" cellspacing="0">
@@ -83,11 +84,23 @@ import java.util.Set;
  *       byte[]</td>
  *   </tr>
  *   <tr>
- *     <td rowspan="7">String</td>
+ *     <td rowspan="11">String</td>
  *     <td>char</td>
  *   </tr>
  *   <tr>
  *     <td>java.lang.CharSequence</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.lang.Enum</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.sql.Time</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.sql.Timestamp</td>
+ *   </tr>
+ *   <tr>
+ *     <td>java.util.Calendar</td>
  *   </tr>
  *   <tr>
  *     <td>java.lang.String</td>
@@ -120,19 +133,6 @@ import java.util.Set;
  *   </tr>
  *   <tr>
  *     <td>java.math.BigInteger</td>
- *   </tr>
- *   <tr>
- *     <td rowspan="4">number (milliseconds since 1970)</td>
- *     <td>java.util.Date</td>
- *   </tr>
- *   <tr>
- *     <td>java.sql.Time</td>
- *   </tr>
- *   <tr>
- *     <td>java.sql.Timestamp</td>
- *   </tr>
- *   <tr>
- *     <td>java.util.Calendar</td>
  *   </tr>
  *   <tr>
  *     <td rowspan="2">true/false</td>

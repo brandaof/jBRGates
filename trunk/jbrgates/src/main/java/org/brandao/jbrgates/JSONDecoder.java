@@ -29,7 +29,6 @@ import java.util.Set;
 
 /**
  * This is a json decoder.
- * <p>If not informed "class", the method decode(Class&lt;T&gt; type) should be used.</p>
  * 
  * <pre>
  * Ex1:

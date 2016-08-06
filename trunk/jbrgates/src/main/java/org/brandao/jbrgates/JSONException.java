@@ -25,12 +25,14 @@ package org.brandao.jbrgates;
  */
 public class JSONException extends RuntimeException{
 
-    public JSONException() {
-	super();
+	private static final long serialVersionUID = -4266916178527582541L;
+
+	public JSONException() {
+		super();
     }
 
     public JSONException(String message) {
-	super(message);
+    	super(message);
     }
 
     public JSONException(String message, Throwable cause) {

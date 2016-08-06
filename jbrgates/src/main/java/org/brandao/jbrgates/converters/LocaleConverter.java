@@ -23,7 +23,6 @@ import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONEncoder;
 import org.brandao.jbrgates.JSONException;
-import org.brandao.jbrgates.LocaleUtils;
 
 /**
  *

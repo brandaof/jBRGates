@@ -1,10 +1,10 @@
-package org.brandao.jbrgates;
+package org.brandao.jbrgates.converters;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class EnumUtil {
+class EnumUtil {
 
 	private static final Class<?> rootEnumClass;
 	

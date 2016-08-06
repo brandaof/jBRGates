@@ -15,7 +15,7 @@
  *
  */
 
-package org.brandao.jbrgates;
+package org.brandao.jbrgates.converters;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -25,7 +25,7 @@ import java.util.Map;
  *
  * @author Afonso Brandao
  */
-public class LocaleUtils {
+class LocaleUtils {
 
     private static Map<String, Locale> locales;
 

@@ -41,7 +41,7 @@ public class JSONEncoderEnumTest extends TestCase implements Test{
     public void testEnum() throws IOException{
         JSONEncoder jse = new JSONEncoder();
         jse.encode( EnumTest.VALUE2 );
-        assertEquals( String.valueOf( EnumTest.VALUE2.ordinal() ), jse.toString() );
+        assertEquals( "\"" + EnumTest.VALUE2.name() + "\"", jse.toString() );
     }
 
 

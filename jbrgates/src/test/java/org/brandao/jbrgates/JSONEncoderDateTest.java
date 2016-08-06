@@ -39,30 +39,26 @@ public class JSONEncoderDateTest extends TestCase implements Test{
 
     public void testDate() throws IOException{
         JSONEncoder jse = new JSONEncoder();
-        Date date = new Date();
-        jse.encode( date );
-        assertEquals( String.valueOf( date.getTime() ), jse.toString() );
+        jse.encode( DateTestHelper.testDateValue );
+        assertEquals( DateTestHelper.dateFormat.format(DateTestHelper.testDateValue), jse.toString() );
     }
 
     public void testTime() throws IOException{
         JSONEncoder jse = new JSONEncoder();
-        Time time = new Time( (new Date()).getTime() );
-        jse.encode( time );
-        assertEquals( String.valueOf( time.getTime() ), jse.toString() );
+        jse.encode( DateTestHelper.testTimeValue );
+        assertEquals( DateTestHelper.dateFormat.format(DateTestHelper.testTimeValue), jse.toString() );
     }
 
     public void testTimestamp() throws IOException{
         JSONEncoder jse = new JSONEncoder();
-        Timestamp time = new Timestamp( (new Date()).getTime() );
-        jse.encode( time );
-        assertEquals( String.valueOf( time.getTime() ), jse.toString() );
+        jse.encode( DateTestHelper.testTimestampValue );
+        assertEquals( DateTestHelper.dateFormat.format(DateTestHelper.testTimestampValue), jse.toString() );
     }
 
     public void testCalendar() throws IOException{
         JSONEncoder jse = new JSONEncoder();
-        Calendar cal = new GregorianCalendar();
-        jse.encode( cal );
-        assertEquals( String.valueOf( cal.getTime().getTime() ), jse.toString() );
+        jse.encode( DateTestHelper.testCalendarValue );
+        assertEquals( DateTestHelper.dateFormat.format(DateTestHelper.testCalendarValue.getTime()), jse.toString() );
     }
 
 }

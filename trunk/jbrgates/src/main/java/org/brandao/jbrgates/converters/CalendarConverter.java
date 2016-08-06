@@ -23,6 +23,7 @@ import java.util.Date;
 
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
+import org.brandao.jbrgates.JSONEncoder;
 import org.brandao.jbrgates.JSONException;
 
 /**
@@ -37,7 +38,10 @@ public class CalendarConverter implements JSONConverter{
     public StringBuffer getJsonObject(Object value) throws JSONException {
     	try{
 	    	Calendar cal = (Calendar)value;
-	        return new StringBuffer().append("\"").append(sdf.format(cal.getTime())).append("\"");
+	        return 
+        		new StringBuffer(JSONEncoder.QUOTE)
+	        		.append(sdf.format(cal.getTime()))
+        		.append(JSONEncoder.QUOTE);
     	}
     	catch(Throwable e){
     		throw new JSONException(e);

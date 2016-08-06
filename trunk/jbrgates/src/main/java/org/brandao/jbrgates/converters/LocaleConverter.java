@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
+import org.brandao.jbrgates.JSONEncoder;
 import org.brandao.jbrgates.JSONException;
 import org.brandao.jbrgates.LocaleUtils;
 
@@ -33,9 +34,9 @@ public class LocaleConverter implements JSONConverter{
 
     public StringBuffer getJsonObject(Object value) throws JSONException {
     	return 
-			new StringBuffer("\"")
+			new StringBuffer(JSONEncoder.QUOTE)
     			.append(LocaleUtils.getKey((Locale)value))
-    		.append("\"");
+    		.append(JSONEncoder.QUOTE);
     }
 
     public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {

@@ -32,7 +32,7 @@ import org.brandao.jbrgates.JSONException;
  */
 public class DateConverter implements JSONConverter{
 
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.sssXXX");
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.sss'Z'");
 	
     public StringBuffer getJsonObject(Object value) throws JSONException {
     	try{

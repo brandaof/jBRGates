@@ -17,6 +17,7 @@
 
 package org.brandao.jbrgates.converters;
 
+import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONException;
 
@@ -68,7 +69,7 @@ public class StringConverter implements JSONConverter{
         return buf;
     }
 
-    public Object getObject(Object value) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
         if(value instanceof String)
             return String.valueOf(value);
         else

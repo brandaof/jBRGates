@@ -18,6 +18,7 @@
 package org.brandao.jbrgates.converters;
 
 import org.brandao.jbrgates.ClassType;
+import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONException;
 
@@ -28,17 +29,26 @@ import org.brandao.jbrgates.JSONException;
  */
 public class DefaultConverter implements JSONConverter{
 
+	private Class<?> wrapper;
+	
+	public DefaultConverter(Class<?> type){
+		this.wrapper = ClassType.getWrapper(type);
+	}
+	
     public StringBuffer getJsonObject(Object value) throws JSONException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Object getObject(Object value) throws JSONException {
+    public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
         try{
 
+        	/*
             if( value instanceof String )
                 return String.valueOf(value);
-
-            Class wrapper = ClassType.getWrapper( value.getClass() );
+        	 */
+        	
+            //Class wrapper = ClassType.getWrapper( value.getClass() );
+        	
             return wrapper
                         .getMethod( "valueOf" , String.class )
                             .invoke( wrapper , value);

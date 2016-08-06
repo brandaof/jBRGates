@@ -210,15 +210,19 @@ public class JSONDecoderObjectTest extends TestCase implements Test{
 
     public void testNotSerializable() throws IOException{
         try{
-            JSONDecoder jse = new JSONDecoder( String.format( "\"%s\"", Test.class.getName() ) );
+            JSONDecoder jse = new JSONDecoder( "{\"teste\": \"\"}" );
             jse.decode( Test1.class );
+            fail( "expected JSONException" );
         }
         catch( JSONException e ){
+        	if(!e.getMessage().endsWith(" : not implement java.io.Serializable")){
+                fail( "expected JSONException" );
+        	}
+        	
             return;
         }
-        fail( "expected JSONException" );
     }
-
+    
     public void testExtendsNotSerializable() throws IOException{
         JSONDecoder jsd = new JSONDecoder(
             "{ \"class\" : \"org.brandao.jbrgates.JSONDecoderObjectTest$Test2\", " +

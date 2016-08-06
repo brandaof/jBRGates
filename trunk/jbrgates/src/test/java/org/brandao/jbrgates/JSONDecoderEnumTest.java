@@ -39,14 +39,14 @@ public class JSONDecoderEnumTest extends TestCase implements Test{
     }
 
     public void testEnum() throws IOException{
-        JSONDecoder jse = new JSONDecoder(String.valueOf( EnumTest.VALUE2.ordinal()));
+        JSONDecoder jse = new JSONDecoder("\"" + EnumTest.VALUE2.name() + "\"");
         Object value = jse.decode(EnumTest.class);
         assertEquals( EnumTest.VALUE2, value );
     }
 
     public void testEnumString() throws IOException{
-        JSONDecoder jse = new JSONDecoder(String.valueOf( EnumTest.VALUE2.ordinal()));
+        JSONDecoder jse = new JSONDecoder("\"" + EnumTest.VALUE2.name() + "\"");
         Object value = jse.decode();
-        assertEquals( String.valueOf( EnumTest.VALUE2.ordinal()), value );
+        assertEquals( String.valueOf( EnumTest.VALUE2.name()), value );
     }
 }

@@ -20,18 +20,24 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import org.brandao.jbrgates.converters.BigDecimalConverter;
 import org.brandao.jbrgates.converters.BigIntegerConverter;
+import org.brandao.jbrgates.converters.CalendarConverter;
 import org.brandao.jbrgates.converters.CharacterConverter;
 import org.brandao.jbrgates.converters.ClassConverter;
+import org.brandao.jbrgates.converters.DateConverter;
 import org.brandao.jbrgates.converters.DefaultConverter;
+import org.brandao.jbrgates.converters.EnumConverter;
 import org.brandao.jbrgates.converters.LocaleConverter;
 import org.brandao.jbrgates.converters.StringConverter;
 import org.brandao.jbrgates.converters.URIConverter;
 import org.brandao.jbrgates.converters.URLConverter;
+import org.brandao.jbrgates.converters.VoidConverter;
 
 /**
  *
@@ -42,24 +48,47 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
 
     private Map<Class,JSONConverter> converters;
     private FactoryBean factory;
-    private DefaultConverter defaultConverter;
+    private JSONConverter defaultConverter;
 
     public AbstractJSONContext(){
         this.converters = new LinkedHashMap<Class,JSONConverter>();
         this.factory = new DefaultIOCFactoryBean();
-        this.defaultConverter = new DefaultConverter();
+        this.defaultConverter = new StringConverter();//new DefaultConverter(String.class);
         loadConverters();
     }
 
     private void loadConverters(){
-        addConverter(BigDecimal.class, new BigDecimalConverter());
-        addConverter(BigInteger.class, new BigIntegerConverter());
-        addConverter(Character.class, new CharacterConverter());
-        addConverter(Class.class, new ClassConverter());
-        addConverter(Locale.class, new LocaleConverter());
-        addConverter(String.class, new StringConverter());
-        addConverter(URI.class, new URIConverter());
-        addConverter(URL.class, new URLConverter());
+        addConverter(BigDecimal.class,	new BigDecimalConverter());
+        addConverter(BigInteger.class, 	new BigIntegerConverter());
+        addConverter(Class.class, 		new ClassConverter());
+        addConverter(Locale.class, 		new LocaleConverter());
+        addConverter(String.class, 		new StringConverter());
+        addConverter(URI.class, 		new URIConverter());
+        addConverter(URL.class, 		new URLConverter());
+        addConverter(Enum.class, 		new EnumConverter());
+        addConverter(Date.class, 		new DateConverter());
+        addConverter(Calendar.class,	new CalendarConverter());
+
+        addConverter(boolean.class,		new DefaultConverter(Boolean.class));
+        addConverter(byte.class,		new DefaultConverter(Byte.class));
+        addConverter(char.class, 		new CharacterConverter());
+        addConverter(double.class,		new DefaultConverter(Double.class));
+        addConverter(float.class,		new DefaultConverter(Float.class));
+        addConverter(int.class,			new DefaultConverter(Integer.class));
+        addConverter(long.class,		new DefaultConverter(Long.class));
+        addConverter(short.class,		new DefaultConverter(Short.class));
+        addConverter(void.class,		new VoidConverter());
+
+        addConverter(Boolean.class,		new DefaultConverter(Boolean.class));
+        addConverter(Byte.class,		new DefaultConverter(Byte.class));
+        addConverter(Character.class, 	new CharacterConverter());
+        addConverter(Double.class,		new DefaultConverter(Double.class));
+        addConverter(Float.class,		new DefaultConverter(Float.class));
+        addConverter(Integer.class,		new DefaultConverter(Integer.class));
+        addConverter(Long.class,		new DefaultConverter(Long.class));
+        addConverter(Short.class,		new DefaultConverter(Short.class));
+        addConverter(Void.class,		new VoidConverter());
+        
     }
 
     public String encode(Object value) throws JSONException {
@@ -92,7 +121,24 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
     }
 
     public JSONConverter getConverter(Class type) {
-        return this.converters.get(type);
+    	
+    	if(type == null){
+    		return null;
+    	}
+    	else;
+    	if(type.isEnum()){
+    		return this.converters.get(Enum.class);
+    	}
+    	else
+    	if(Date.class.isAssignableFrom(type)){
+    		return this.converters.get(Date.class);
+    	}
+    	else
+    	if(Calendar.class.isAssignableFrom(type)){
+    		return this.converters.get(Calendar.class);
+    	}
+    	else
+    		return this.converters.get(type);
     }
 
     public void removeConverter(Class type) {

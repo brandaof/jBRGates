@@ -33,7 +33,7 @@ import java.util.Set;
  *
  * @author Afonso Brandao
  */
-class DefaultIOCFactoryBean implements FactoryBean{
+public class DefaultIOCFactoryBean implements FactoryBean{
 
     public <T> T getInstance( Class<T> type ){
         try{

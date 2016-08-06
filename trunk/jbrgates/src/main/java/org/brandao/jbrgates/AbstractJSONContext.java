@@ -42,7 +42,9 @@ import org.brandao.jbrgates.converters.URLConverter;
 import org.brandao.jbrgates.converters.VoidConverter;
 
 /**
- *
+ * Abstract implementation of the 
+ * {@link JSONContext} interface
+ *  
  * @author Brandao
  * @version 1.1
  */

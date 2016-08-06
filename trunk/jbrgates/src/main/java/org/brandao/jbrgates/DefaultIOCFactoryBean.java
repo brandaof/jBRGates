@@ -30,8 +30,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
- * @author Afonso Brandao
+ * Default bean factoty.
+ * 
+ * @author Brandao
  */
 public class DefaultIOCFactoryBean implements FactoryBean{
 

@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
  * resources to encode and decode a Json objects.
  * 
  * <p>The method {@link #encode(Object)} convert a java object to json object.</p>
+ * 
  * <pre>
  * Ex:
  *     double[] javaObject = new double[]{1.0,25.0};
@@ -63,7 +64,8 @@ import java.lang.reflect.Type;
  * {"field1": "2016-08-06T12:30:00.000Z", "field2": "VALUE1"}
  * </pre>
  * 
- * <p>The method {@link #decode(Object)} convert a json object to java object.</p>
+ * <p>The method {@link #decode(String)} convert a json object to java object.</p>
+ * 
  * <pre>
  * Ex:
  *     String jsonObject   = "[1.0, 25.0]";

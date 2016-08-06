@@ -19,6 +19,7 @@ package org.brandao.jbrgates;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -197,7 +198,7 @@ public class JSONDecoder implements JSONConstants{
     }
 
     /**
-     * Decodes a JSON object.
+     * Decode a JSON object.
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
      */
@@ -206,13 +207,14 @@ public class JSONDecoder implements JSONConstants{
     }
 
     /**
-     * Decodes a JSON object in a specific type.
-     * @param <T> 
+     * Decode a JSON object to specific type.
+     * @param <T> Type.
      * @param type Class type.
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
      */
-    public <T> T decode( Class<T> type ) throws JSONException{
+    @SuppressWarnings("unchecked")
+	public <T> T decode( Class<T> type ) throws JSONException{
         try{
             JSONParsing parsing = new JSONParsing( in );
             return (T) decoder0( parsing.object( type ), type );
@@ -226,7 +228,7 @@ public class JSONDecoder implements JSONConstants{
     }
 
     /**
-     * Decodes a JSON object in a specific type.
+     * Decode a JSON object to a specific type.
      * @param type Class type.
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
@@ -245,6 +247,22 @@ public class JSONDecoder implements JSONConstants{
         }
     }
 
+    /**
+     * Decode a JSON object to a specific collection type.
+     * @param collectionType Collection type.
+     * @param entityType Entity type.
+     * @return Collection.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    public Object decodeCollection( 
+    		Type collectionType,  
+			Type entityType) throws JSONException{
+    	
+    	ParameterizedType type = 
+			new ParameterizedTypeImp(collectionType, new Type[]{entityType});
+    	
+    	return this.decode(type);
+    }
 
     private Object decoder0( Object data, Type clazz ) throws Exception{
         Class clazzType = getClass( clazz );
@@ -449,4 +467,28 @@ public class JSONDecoder implements JSONConstants{
         return context;
     }
 
+    private static class ParameterizedTypeImp implements ParameterizedType{
+
+        private Type rawType;
+        private Type[] typeArguments;
+
+        public ParameterizedTypeImp( Type rawType, Type[] typeArguments ){
+            this.rawType = rawType;
+            this.typeArguments = typeArguments;
+        }
+    	
+		public Type[] getActualTypeArguments() {
+			return typeArguments;
+		}
+
+		public Type getRawType() {
+			return rawType;
+		}
+
+		public Type getOwnerType() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+    	
+    }
 }

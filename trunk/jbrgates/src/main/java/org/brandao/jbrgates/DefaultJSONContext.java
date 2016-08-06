@@ -18,7 +18,7 @@
 package org.brandao.jbrgates;
 
 /**
- *
+ * 
  * @author Brandao
  * @version 1.1
  */

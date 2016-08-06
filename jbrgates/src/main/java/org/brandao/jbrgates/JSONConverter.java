@@ -18,14 +18,30 @@
 package org.brandao.jbrgates;
 
 /**
- *
+ * Defines the object that provides the necessary 
+ * resources to encode and decode a specific java type.
+ * 
  * @author Brandao
  * @version 1.1
  */
 public interface JSONConverter {
 
+	/**
+	 * Convert the java object to json object.
+	 * @param value Java object.
+	 * @return Json object.
+	 * @throws JSONException Thrown if a problem occurs when converting.
+	 */
     StringBuffer getJsonObject(Object value) throws JSONException;
 
-    Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException;
+    /**
+	 * Convert the json object to java object.
+     * @param value Json object.
+     * @param factory Bean factory.
+     * @param baseType Base type to converting object. (eg. Enum type)
+     * @return Java object.
+	 * @throws JSONException Thrown if a problem occurs when converting.
+     */
+    Object getObject(Object value, FactoryBean factory, Class<?> baseType) throws JSONException;
 
 }

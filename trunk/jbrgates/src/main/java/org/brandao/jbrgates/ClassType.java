@@ -26,10 +26,10 @@ import java.util.Map;
  */
 public final class ClassType {
     
-    private static final Map<Object, Class> primitiveType;
+    private static final Map<Object, Class<?>> primitiveType;
     
     static{
-        primitiveType = new HashMap<Object, Class>();
+        primitiveType = new HashMap<Object, Class<?>>();
         primitiveType.put("boolean",java.lang.Boolean.TYPE);
         primitiveType.put("byte",java.lang.Byte.TYPE);
         primitiveType.put("char",java.lang.Character.TYPE);
@@ -51,7 +51,7 @@ public final class ClassType {
         primitiveType.put(void.class,java.lang.Void.class);
     }
     
-    public static Class<?> getWrapper( Class clazz ){
+    public static Class<?> getWrapper( Class<?> clazz ){
         Class<?> classe = primitiveType.get( clazz );
         
         return classe == null? clazz : classe;

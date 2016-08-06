@@ -23,6 +23,7 @@ package org.brandao.jbrgates;
  * @author Brandao
  * @version 1.1
  */
-public class DefaultJSONContext extends AbstractJSONContext{
+public class DefaultJSONContext 
+	extends AbstractJSONContext{
 
 }

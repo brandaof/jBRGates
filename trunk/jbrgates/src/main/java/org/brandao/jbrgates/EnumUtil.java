@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 public class EnumUtil {
 
-	private static final Class rootEnumClass;
+	private static final Class<?> rootEnumClass;
 	
 	private static final Method valueOf;
 	
@@ -24,9 +24,9 @@ public class EnumUtil {
 		}
 	}
 	
-    private Class enumClass;
+    private Class<?> enumClass;
 
-    public EnumUtil(Class enumClass){
+    public EnumUtil(Class<?> enumClass){
         this.enumClass = enumClass;
     }
 
@@ -34,7 +34,7 @@ public class EnumUtil {
         return getEnumConstants(this.enumClass);
     }
     
-    public static Object getEnumConstants(Class clazz){
+    public static Object getEnumConstants(Class<?> clazz){
         try{
             Method m =
                 Class.class.getMethod("getEnumConstants", new Class[]{});
@@ -52,17 +52,16 @@ public class EnumUtil {
         return valueOf(this.enumClass,value);
     }
 
-    public static Object getEnumConstant( Class enumClazz, Integer index ){
+    public static Object getEnumConstant( Class<?> enumClazz, Integer index ){
         Object cons = getEnumConstants(enumClazz);
         return Array.get(cons, index.intValue());
     }
 
-    public static Object valueOf( Class enumClazz, String value ) 
+    public static Object valueOf( Class<?> enumClazz, String value ) 
     		throws ClassNotFoundException, NoSuchMethodException, SecurityException, 
     		IllegalAccessException, IllegalArgumentException, InvocationTargetException{
         return valueOf.invoke(rootEnumClass, new Object[]{enumClazz,value});
 
     }
-
 
 }

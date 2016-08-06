@@ -35,7 +35,8 @@ import java.util.Set;
  */
 public class DefaultIOCFactoryBean implements FactoryBean{
 
-    public <T> T getInstance( Class<T> type ){
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public <T> T getInstance( Class<T> type ){
         try{
             if( Map.class.isAssignableFrom(type) )
                 return (T) new HashMap();

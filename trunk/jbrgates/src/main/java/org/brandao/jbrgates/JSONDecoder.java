@@ -231,7 +231,7 @@ public class JSONDecoder implements JSONConstants{
      */
     public Object decode( Type type ) throws JSONException{
         try{
-            Class clazz = getClass( type );
+            Class<?> clazz = getClass( type );
             JSONParsing parsing = new JSONParsing( in );
             return decoder0( parsing.object( clazz ), type );
         }
@@ -260,8 +260,9 @@ public class JSONDecoder implements JSONConstants{
     	return this.decode(type);
     }
 
-    private Object decoder0( Object data, Type clazz ) throws Exception{
-        Class clazzType = getClass( clazz );
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private Object decoder0( Object data, Type clazz ) throws Exception{
+        Class<?> clazzType = getClass( clazz );
         
         if(clazzType == null)
         	clazzType = Object.class;
@@ -323,16 +324,17 @@ public class JSONDecoder implements JSONConstants{
     }
     */
     
-    private Object array( List<Object> data, Type type ) throws Exception{
+	@SuppressWarnings("unchecked")
+	private Object array( List<?> data, Type type ) throws Exception{
         
-        Class classType = getClass( type );
-        Class collectionType = getCollectionType( type );
+        Class<?> classType = getClass( type );
+        Class<?> collectionType = getCollectionType( type );
         
         if( classType == null )
             return data;
         else
         if( Collection.class.isAssignableFrom( classType ) ){
-            Collection<Object> set = (Collection) factory.getInstance( classType );
+            Collection<Object> set = (Collection<Object>) factory.getInstance( classType );
             for( Object dta: data )
                 set.add( decoder0( dta, collectionType ) );
 
@@ -350,14 +352,15 @@ public class JSONDecoder implements JSONConstants{
             return null;
     }
 
-    private Object getMap( Map map, Type type ) throws Exception{
-        Class classType = getClass( type );
+	@SuppressWarnings({ "unchecked", "unused" })
+	private Object getMap( Map<?,?> map, Type type ) throws Exception{
+        Class<?> classType = getClass( type );
         Type[] types = getMapType( type );
         Type keyTpye = types[0];
         Type valueType = types[1];
 
-        Set<Object> keys = map.keySet();
-        Map<String,Object> values = (Map)factory.getInstance( classType );
+        Set<?> keys = map.keySet();
+        Map<Object,Object> values = (Map<Object,Object>)factory.getInstance( classType );
         for( Object k: keys ){
             Object key = decoder0( k, String.class );
             Object value = decoder0( map.get( k ), valueType );
@@ -372,8 +375,8 @@ public class JSONDecoder implements JSONConstants{
         if( !(data instanceof Map) )
             return toValue( String.valueOf( data ), clazz );
         else{
-            Map values = (Map)data;
-            Class classType = getClass( (Map<String,Object>)values, clazz );
+            Map<?,?> values = (Map<?,?>)data;
+            Class<?> classType = getClass( (Map<?,?>)values, clazz );
             MappingBean mb = MappingBean.getMapping( getClass( classType ) );
             Object instance = factory.getInstance( classType );
 
@@ -392,7 +395,7 @@ public class JSONDecoder implements JSONConstants{
         }
     }
 
-    private Class getClass( Map<String,Object> mappedObj, Type classType ) throws ClassNotFoundException{
+    private Class<?> getClass( Map<?,?> mappedObj, Type classType ) throws ClassNotFoundException{
         if( classType == null ){
             String clazzName = (String) mappedObj.get( "class" );
             if( clazzName == null )
@@ -407,28 +410,16 @@ public class JSONDecoder implements JSONConstants{
 
     private Object toValue( String value, Type type ){
         try{
-            //Class wrapper = ClassType.getWrapper( (Class)type );
 
             if( value == null )
                 return null;
 
-            JSONConverter converter = context.getConverter((Class) type);
+            JSONConverter converter = context.getConverter((Class<?>) type);
 
             if(converter == null)
                 converter = context.getDefaultConverter();
 
-            /*
-            if(converter == null){
-            	throw new JSONException("invalid type: " + type);
-            }
-            */
-            
-            /*
-            if(converter == null)
-                converter = context.getDefaultConverter();
-            */
-            
-            return converter.getObject(value, this.factory, (Class)type);
+            return converter.getObject(value, this.factory, (Class<?>)type);
         }
         catch( JSONException e ){
             throw e;
@@ -438,16 +429,16 @@ public class JSONDecoder implements JSONConstants{
         }
     }
 
-    private static Class getClass( java.lang.reflect.Type type ){
+    private static Class<?> getClass( java.lang.reflect.Type type ){
         if( type instanceof ParameterizedType )
-            return (Class)((ParameterizedType)type).getRawType();
+            return (Class<?>)((ParameterizedType)type).getRawType();
         else
-            return (Class)type;
+            return (Class<?>)type;
     }
 
-    private static Class getCollectionType( java.lang.reflect.Type type ){
+    private static Class<?> getCollectionType( java.lang.reflect.Type type ){
         if( type instanceof ParameterizedType )
-            return (Class)((ParameterizedType)type).getActualTypeArguments()[0];
+            return (Class<?>)((ParameterizedType)type).getActualTypeArguments()[0];
         else
             return Object.class;
     }
@@ -482,7 +473,6 @@ public class JSONDecoder implements JSONConstants{
 		}
 
 		public Type getOwnerType() {
-			// TODO Auto-generated method stub
 			return null;
 		}
     	

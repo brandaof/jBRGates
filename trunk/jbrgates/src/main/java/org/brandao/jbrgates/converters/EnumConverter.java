@@ -30,7 +30,10 @@ import org.brandao.jbrgates.JSONException;
 public class EnumConverter implements JSONConverter{
 
     public StringBuffer getJsonObject(Object value) throws JSONException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	return 
+			new StringBuffer("\"")
+    			.append(((Enum)value).name())
+    		.append("\"");
     }
 
     public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {

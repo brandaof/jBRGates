@@ -31,7 +31,7 @@ import org.brandao.jbrgates.JSONException;
 public class BigDecimalConverter implements JSONConverter{
 
     public StringBuffer getJsonObject(Object value) throws JSONException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new StringBuffer(((BigDecimal)value).toString());
     }
 
     public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {

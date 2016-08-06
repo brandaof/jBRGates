@@ -17,7 +17,7 @@
 
 package org.brandao.jbrgates.converters;
 
-import java.net.URL;
+import java.util.Locale;
 
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
@@ -32,7 +32,10 @@ import org.brandao.jbrgates.LocaleUtils;
 public class LocaleConverter implements JSONConverter{
 
     public StringBuffer getJsonObject(Object value) throws JSONException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	return 
+			new StringBuffer("\"")
+    			.append(LocaleUtils.getKey((Locale)value))
+    		.append("\"");
     }
 
     public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {

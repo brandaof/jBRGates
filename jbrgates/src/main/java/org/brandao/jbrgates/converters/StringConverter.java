@@ -19,6 +19,7 @@ package org.brandao.jbrgates.converters;
 
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
+import org.brandao.jbrgates.JSONEncoder;
 import org.brandao.jbrgates.JSONException;
 
 /**
@@ -31,7 +32,9 @@ public class StringConverter implements JSONConverter{
     public StringBuffer getJsonObject(Object value) throws JSONException {
         StringBuffer tmp = new StringBuffer(String.valueOf( value ));
         StringBuffer buf = new StringBuffer();
-
+        
+        buf.append(JSONEncoder.QUOTE);
+        
         for( int i=0;i<tmp.length();i++ ) {
             char ch = tmp.charAt( i );
             switch (ch) {
@@ -66,6 +69,9 @@ public class StringConverter implements JSONConverter{
                 }
             }
         }
+        
+        buf.append(JSONEncoder.QUOTE);
+        
         return buf;
     }
 

@@ -18,11 +18,11 @@
 package org.brandao.jbrgates.converters;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
+import org.brandao.jbrgates.JSONEncoder;
 import org.brandao.jbrgates.JSONException;
 
 /**
@@ -37,7 +37,10 @@ public class DateConverter implements JSONConverter{
     public StringBuffer getJsonObject(Object value) throws JSONException {
     	try{
 	    	Date date = (Date)value;
-	        return new StringBuffer().append("\"").append(sdf.format(date)).append("\"");
+	        return 
+        		new StringBuffer(JSONEncoder.QUOTE)
+	        		.append(sdf.format(date))
+        		.append(JSONEncoder.QUOTE);
     	}
     	catch(Throwable e){
     		throw new JSONException(e);

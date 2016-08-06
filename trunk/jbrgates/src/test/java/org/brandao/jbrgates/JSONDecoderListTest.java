@@ -495,4 +495,13 @@ public class JSONDecoderListTest extends TestCase implements Test{
         assertTrue( Arrays.equals( array , result.toArray() ) );
     }
 
+    public void testGetCollectionBigInteger() throws IOException{
+        JSONDecoder jse = new JSONDecoder( "[ 0, -100, 127 ]" );
+        List<BigInteger> array = (List<BigInteger>) jse.decodeCollection(List.class, BigInteger.class);
+        assertNotNull( array );
+        assertEquals( new BigInteger( "0" ), array.get(0) );
+        assertEquals( new BigInteger( "-100", 10), array.get(1) );
+        assertEquals( new BigInteger( "127", 10 ), array.get(2) );
+    }
+    
 }

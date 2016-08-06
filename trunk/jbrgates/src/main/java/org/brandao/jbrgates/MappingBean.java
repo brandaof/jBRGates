@@ -31,15 +31,15 @@ import java.util.Map;
  */
 class MappingBean {
 
-    private static Map<Class,MappingBean> cache = new HashMap<Class,MappingBean>();
+    private static Map<Class<?>,MappingBean> cache = new HashMap<Class<?>,MappingBean>();
 
     private boolean external;
 
-    private Class type;
+    private Class<?> type;
 
     private Map<String, MethodMapping> getters;
 
-    public MappingBean( Class type ){
+    public MappingBean( Class<?> type ){
         this.type = type;
         this.getters = new HashMap<String, MethodMapping>();
     }
@@ -48,7 +48,7 @@ class MappingBean {
         return external;
     }
 
-    public Class getType() {
+    public Class<?> getType() {
         return type;
     }
 
@@ -57,12 +57,12 @@ class MappingBean {
     }
 
 
-    public static MappingBean getMapping( Class clazz ){
+    public static MappingBean getMapping( Class<?> clazz ){
         MappingBean mapping = cache.get( clazz );
         return mapping == null? create( clazz ) : mapping;
     }
 
-    private synchronized static MappingBean create( Class clazz ){
+    private synchronized static MappingBean create( Class<?> clazz ){
         if( cache.containsKey( clazz ) )
             return cache.get(clazz);
         else{
@@ -73,7 +73,7 @@ class MappingBean {
         
     }
 
-    private static MappingBean create0( Class clazz ){
+    private static MappingBean create0( Class<?> clazz ){
         
         if( Serializable.class.isAssignableFrom( clazz ) )
             return createSerializableMapping( clazz );
@@ -81,7 +81,7 @@ class MappingBean {
             throw new JSONException( clazz.getName() + " : not implement java.io.Serializable" );
     }
 
-    private static MappingBean createSerializableMapping( Class clazz ){
+    private static MappingBean createSerializableMapping( Class<?> clazz ){
 
         if( cache.containsKey( clazz ) )
             return cache.get( clazz );
@@ -95,8 +95,8 @@ class MappingBean {
             return mapping;
     }
 
-    private static MappingBean createSerializableMapping0( MappingBean mapping, Class clazz ){
-        Class superClass = clazz.getSuperclass();
+    private static MappingBean createSerializableMapping0( MappingBean mapping, Class<?> clazz ){
+        Class<?> superClass = clazz.getSuperclass();
         if( isSerializable( superClass ) )
             createSerializableMapping0( mapping, superClass );
 
@@ -105,7 +105,7 @@ class MappingBean {
         return mapping;
     }
 
-    private static void fields( MappingBean mapping, Class clazz ){
+    private static void fields( MappingBean mapping, Class<?> clazz ){
         Field[] fields = clazz.getDeclaredFields();
 
         for( Field f: fields ){
@@ -116,7 +116,7 @@ class MappingBean {
 
     }
 
-    private static void addClassType( MappingBean mapping, Class clazz ){
+    private static void addClassType( MappingBean mapping, Class<?> clazz ){
         try{
             mapping.addMethod( "class" , Object.class.getDeclaredMethod( "getClass" ), null);
         }
@@ -177,13 +177,13 @@ class MappingBean {
         this.getMethods().put( id , new MethodMapping( id, getter, setter, this, getter.getGenericReturnType() ) );
     }
 
-    private static boolean isSerializable( Class clazz ){
+    private static boolean isSerializable( Class<?> clazz ){
         return clazz != null &&
                clazz != Object.class &&
                Serializable.class.isAssignableFrom( clazz );
     }
 
-    public static boolean isStandardProperty(Class clazz) {
+    public static boolean isStandardProperty(Class<?> clazz) {
         return clazz.isPrimitive()                  ||
             clazz.isAssignableFrom(Float.class)     ||
             clazz.isAssignableFrom(Short.class)     ||

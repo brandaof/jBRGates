@@ -45,16 +45,17 @@ import org.brandao.jbrgates.converters.VoidConverter;
  * @author Brandao
  * @version 1.1
  */
-public abstract class AbstractJSONContext implements JSONContext, JSONContextConfiguration{
+public abstract class AbstractJSONContext 
+	implements JSONContext, JSONContextConfiguration{
 
-    private Map<Class,JSONConverter> converters;
+    private Map<Class<?>,JSONConverter> converters;
     private FactoryBean factory;
     private JSONConverter defaultConverter;
 
     public AbstractJSONContext(){
-        this.converters = new LinkedHashMap<Class,JSONConverter>();
+        this.converters = new LinkedHashMap<Class<?>,JSONConverter>();
         this.factory = new DefaultIOCFactoryBean();
-        this.defaultConverter = new StringConverter();//new DefaultConverter(String.class);
+        this.defaultConverter = new StringConverter();
         loadConverters();
     }
 
@@ -139,11 +140,11 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
         }
     }
     
-    public void addConverter(Class type, JSONConverter converter) {
+    public void addConverter(Class<?> type, JSONConverter converter) {
         this.converters.put(type, converter);
     }
 
-    public JSONConverter getConverter(Class type) {
+    public JSONConverter getConverter(Class<?> type) {
     	
     	if(type == null){
     		return null;
@@ -167,7 +168,7 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
     		return this.converters.get(type);
     }
 
-    public void removeConverter(Class type) {
+    public void removeConverter(Class<?> type) {
         this.converters.remove(type);
     }
 

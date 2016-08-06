@@ -19,21 +19,17 @@ package org.brandao.jbrgates;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * Decodes a JSON object.<br>
- * If not informed "class", the method 
- * decode(Class&lt;T&gt; type) should be used.<br>
+ * This is a json decoder.
+ * <p>If not informed "class", the method decode(Class&lt;T&gt; type) should be used.</p>
  * 
  * Ex1:<br>
  * <b>Class:</b><br>
@@ -198,7 +194,7 @@ public class JSONDecoder implements JSONConstants{
     }
 
     /**
-     * Decode a JSON object.
+     * Decodes a JSON object.
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
      */
@@ -228,7 +224,7 @@ public class JSONDecoder implements JSONConstants{
     }
 
     /**
-     * Decode a JSON object to a specific type.
+     * Decodes a JSON object in a specific type.
      * @param type Class type.
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
@@ -248,7 +244,7 @@ public class JSONDecoder implements JSONConstants{
     }
 
     /**
-     * Decode a JSON object to a specific collection type.
+     * Decodes a JSON object in a specific collection type.
      * @param collectionType Collection type.
      * @param entityType Entity type.
      * @return Collection.

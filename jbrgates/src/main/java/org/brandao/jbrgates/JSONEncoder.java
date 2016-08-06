@@ -27,31 +27,47 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class is the encoding of objects into JSON.<br>
- * Only serializable objects are encoded.<br>
- * Ex:<br>
- * <b>Class:</b><br>
+ * This is a json encoder.
+ * <p>Only serializable objects are encoded.</p>
  * <pre>
+ * Ex:
+ *
+ * class:
+ * 
  * public class MyObject implements Serializable{
+ * 
  *   private int id;
+ *   
  *   private String name;
  * 
  *   ...
  * 
  * }
+ *
+ * code:
+ * 
+ * MyObject obj = new MyObject();
+ * ...
+ * JSONEncoder jen = new JSONEncoder();
+ * jen.encode( obj );
+ * 
+ * Output:
+ * { "id": 1, "name" : "Jose", "class" : "MyObject" }
  * </pre>
  *
- * <b>Example code:</b><br>
  * <pre>
+ * Ex2:
+ * 
+ * 
  * MyObject obj = new MyObject();
  * ...
  * JSONEncoder jen = new JSONEncoder();
  * jen.encode( obj );
  * </pre>
  *
- * <b>Output:</b><br>
- * <pre>
+ * Output:
  * { "id": 1, "name" : "Jose", "class" : "MyObject" }
+ * 
  * </pre>
  *
  * <h4>Summary of encoding rules for java type into json type</h4>
@@ -78,6 +94,10 @@ import java.util.Map;
  *   <tr>
  *     <td>int[], long[], double[], float[], short[], boolean[], char[],
  *       byte[]</td>
+ *   </tr>
+ *   <tr>
+ *     <td>Enum</td>
+ *     <td>String (Enum.name())</td>
  *   </tr>
  *   <tr>
  *     <td>char</td>
@@ -120,7 +140,7 @@ import java.util.Map;
  *   </tr>
  *   <tr>
  *     <td>java.util.Date</td>
- *     <td rowspan="4">number (milliseconds since 1970)</td>
+ *     <td rowspan="4">yyyy-MM-dd hh:mm:ss (ex: 2016-08-06 12:30:00)</td>
  *   </tr>
  *   <tr>
  *     <td>java.sql.Time</td>

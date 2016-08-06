@@ -17,7 +17,6 @@
 
 package org.brandao.jbrgates.converters;
 
-import org.brandao.jbrgates.EnumUtil;
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
 import org.brandao.jbrgates.JSONEncoder;

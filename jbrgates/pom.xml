@@ -5,7 +5,7 @@
 	<artifactId>jbrgates</artifactId>
 	<packaging>jar</packaging>
 	<version>1.1-b1</version>
-	<name>JBRGates</name>
+	<name>jBRGates</name>
 	<description>The JBRGates is a lightweight library that serializes objects into JSON.</description>
 	<url>http://jbrgates.brandao.org/</url>
 

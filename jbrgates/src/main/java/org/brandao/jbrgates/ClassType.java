@@ -21,7 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Provides a variety of useful utilities to 
+ * handler class.
+ * 
 * @author Afonso Brandao
  */
 public final class ClassType {

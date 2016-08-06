@@ -16,6 +16,7 @@
  */
 package org.brandao.jbrgates;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
@@ -117,6 +118,27 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
         return decode(value, null);
     }
 
+    public Object decode( String value, Type type ) throws JSONException{
+        try{
+            JSONDecoder encoder = new JSONDecoder(value);
+            return encoder.decode(type);
+        }
+        catch( Exception e ){
+            throw new JSONException(e);
+        }
+    }
+    
+    public Object decodeCollection( String value, Type collectionType,
+    		Type entityType) throws JSONException{
+        try{
+            JSONDecoder encoder = new JSONDecoder(value);
+            return encoder.decodeCollection(collectionType, entityType);
+        }
+        catch( Exception e ){
+            throw new JSONException(e);
+        }
+    }
+    
     public void addConverter(Class type, JSONConverter converter) {
         this.converters.put(type, converter);
     }

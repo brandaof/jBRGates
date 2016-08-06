@@ -21,8 +21,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.brandao.jbrgates.FactoryBean;
-import org.brandao.jbrgates.JSONConverter;
-import org.brandao.jbrgates.JSONEncoder;
 import org.brandao.jbrgates.JSONException;
 
 /**
@@ -30,14 +28,7 @@ import org.brandao.jbrgates.JSONException;
  * @author Brandao
  * @version 1.1
  */
-public class URIConverter implements JSONConverter{
-
-    public StringBuffer getJsonObject(Object value) throws JSONException {
-    	return 
-			new StringBuffer(JSONEncoder.QUOTE)
-    			.append(String.valueOf(value))
-    		.append(JSONEncoder.QUOTE);
-    }
+public class URIConverter extends StringConverter{
 
     public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
         try{

@@ -337,50 +337,46 @@ public class JSONEncoderListTest extends TestCase implements Test{
     }
 
     public void testDate() throws IOException{
-        Date[] array = new Date[]{ new Date(), new Date() };
         JSONEncoder jse = new JSONEncoder();
-        jse.encode( Arrays.asList( new Date(), new Date() ) );
+        jse.encode( DateTestHelper.testDateCollectionValue );
         assertEquals(
                 String.format(
-                    "[ %d, %d ]",
-                    array[0].getTime(),
-                    array[1].getTime()
+                    "[ %s, %s ]",
+                    DateTestHelper.dateFormat.format(DateTestHelper.testDateArrayValue[0]),
+                    DateTestHelper.dateFormat.format(DateTestHelper.testDateArrayValue[1])
                 ), jse.toString() );
     }
 
     public void testTime() throws IOException{
-        Time[] array = new Time[]{ new Time( (new Date()).getTime() ), new Time( (new Date()).getTime() ) };
         JSONEncoder jse = new JSONEncoder();
-        jse.encode( Arrays.asList( new Time( (new Date()).getTime() ), new Time( (new Date()).getTime() ) ) );
+        jse.encode( DateTestHelper.testTimeCollectionValue );
         assertEquals(
                 String.format(
-                    "[ %d, %d ]",
-                    array[0].getTime(),
-                    array[1].getTime()
+                    "[ %s, %s ]",
+                    DateTestHelper.dateFormat.format(DateTestHelper.testTimeArrayValue[0]),
+                    DateTestHelper.dateFormat.format(DateTestHelper.testTimeArrayValue[1])
                 ), jse.toString() );
     }
 
     public void testTimestamp() throws IOException{
-        Timestamp[] array = new Timestamp[]{ new Timestamp( (new Date()).getTime() ), new Timestamp( (new Date()).getTime() ) };
         JSONEncoder jse = new JSONEncoder();
-        jse.encode( Arrays.asList( new Timestamp( (new Date()).getTime() ), new Timestamp( (new Date()).getTime() ) ) );
+        jse.encode( DateTestHelper.testTimestampCollectionValue );
         assertEquals(
                 String.format(
-                    "[ %d, %d ]",
-                    array[0].getTime(),
-                    array[1].getTime()
+                    "[ %s, %s ]",
+                    DateTestHelper.dateFormat.format(DateTestHelper.testTimestampArrayValue[0]),
+                    DateTestHelper.dateFormat.format(DateTestHelper.testTimestampArrayValue[1])
                 ), jse.toString() );
     }
 
     public void testCalendar() throws IOException{
-        Calendar[] array = new Calendar[]{ new GregorianCalendar(), new GregorianCalendar() };
         JSONEncoder jse = new JSONEncoder();
-        jse.encode( Arrays.asList( new GregorianCalendar(), new GregorianCalendar() ) );
+        jse.encode( DateTestHelper.testCalendarCollectionValue );
         assertEquals(
                 String.format(
-                    "[ %d, %d ]",
-                    array[0].getTime().getTime(),
-                    array[1].getTime().getTime()
+                    "[ %s, %s ]",
+                    DateTestHelper.dateFormat.format(DateTestHelper.testCalendarArrayValue[0].getTime()),
+                    DateTestHelper.dateFormat.format(DateTestHelper.testCalendarArrayValue[1].getTime())
                 ), jse.toString() );
     }
 

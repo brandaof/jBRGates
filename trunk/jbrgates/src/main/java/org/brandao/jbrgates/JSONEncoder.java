@@ -179,8 +179,9 @@ public class JSONEncoder  implements JSONConstants{
         if( out == null )
             throw new NullPointerException();
         
-        this.out   = out;
-        this.cache = new HashMap<Object,StringBuffer>();
+        this.out     = out;
+        this.cache   = new HashMap<Object,StringBuffer>();
+        this.context = context;
     }
 
     /**
@@ -227,6 +228,27 @@ public class JSONEncoder  implements JSONConstants{
         if( obj == null )
             innerWrite( NULL );
         else
+        if( obj instanceof Collection ){
+            collectionEncoder( (Collection)obj );
+        }
+        else
+        if( clazz.isArray() ){
+            arrayEncoder( obj );
+        }
+        else
+        if( obj instanceof Map ){
+            mapEncoder( (Map<Object,Object>)obj );
+        }
+        else{
+        	JSONConverter converter = this.context.getConverter(clazz);
+        	if(converter != null){
+        		innerWrite(converter.getJsonObject(obj));
+        	}
+        	else{
+        		encoderObject1( obj, clazz );
+        	}
+        }
+        /*
         if( clazz == Class.class ){
             innerWrite(
                     (new StringBuffer( QUOTE ))
@@ -288,7 +310,7 @@ public class JSONEncoder  implements JSONConstants{
             mapEncoder( (Map<Object,Object>)obj );
         else
             encoderObject1( obj, clazz );
-
+         */
     }
 
     private void encoderObject1( Object obj, Class clazz ) throws IOException{

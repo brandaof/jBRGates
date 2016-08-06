@@ -58,36 +58,37 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
     }
 
     private void loadConverters(){
-        addConverter(BigDecimal.class,	new BigDecimalConverter());
-        addConverter(BigInteger.class, 	new BigIntegerConverter());
-        addConverter(Class.class, 		new ClassConverter());
-        addConverter(Locale.class, 		new LocaleConverter());
-        addConverter(String.class, 		new StringConverter());
-        addConverter(URI.class, 		new URIConverter());
-        addConverter(URL.class, 		new URLConverter());
-        addConverter(Enum.class, 		new EnumConverter());
-        addConverter(Date.class, 		new DateConverter());
-        addConverter(Calendar.class,	new CalendarConverter());
+        addConverter(BigDecimal.class,		new BigDecimalConverter());
+        addConverter(BigInteger.class, 		new BigIntegerConverter());
+        addConverter(Class.class, 			new ClassConverter());
+        addConverter(Locale.class, 			new LocaleConverter());
+        addConverter(String.class, 			new StringConverter());
+        addConverter(URI.class, 			new URIConverter());
+        addConverter(URL.class, 			new URLConverter());
+        addConverter(Enum.class, 			new EnumConverter());
+        addConverter(Date.class, 			new DateConverter());
+        addConverter(Calendar.class,		new CalendarConverter());
 
-        addConverter(boolean.class,		new DefaultConverter(Boolean.class));
-        addConverter(byte.class,		new DefaultConverter(Byte.class));
-        addConverter(char.class, 		new CharacterConverter());
-        addConverter(double.class,		new DefaultConverter(Double.class));
-        addConverter(float.class,		new DefaultConverter(Float.class));
-        addConverter(int.class,			new DefaultConverter(Integer.class));
-        addConverter(long.class,		new DefaultConverter(Long.class));
-        addConverter(short.class,		new DefaultConverter(Short.class));
-        addConverter(void.class,		new VoidConverter());
+        addConverter(boolean.class,			new DefaultConverter(Boolean.class));
+        addConverter(byte.class,			new DefaultConverter(Byte.class));
+        addConverter(char.class, 			new CharacterConverter());
+        addConverter(double.class,			new DefaultConverter(Double.class));
+        addConverter(float.class,			new DefaultConverter(Float.class));
+        addConverter(int.class,				new DefaultConverter(Integer.class));
+        addConverter(long.class,			new DefaultConverter(Long.class));
+        addConverter(short.class,			new DefaultConverter(Short.class));
+        addConverter(void.class,			new VoidConverter());
 
-        addConverter(Boolean.class,		new DefaultConverter(Boolean.class));
-        addConverter(Byte.class,		new DefaultConverter(Byte.class));
-        addConverter(Character.class, 	new CharacterConverter());
-        addConverter(Double.class,		new DefaultConverter(Double.class));
-        addConverter(Float.class,		new DefaultConverter(Float.class));
-        addConverter(Integer.class,		new DefaultConverter(Integer.class));
-        addConverter(Long.class,		new DefaultConverter(Long.class));
-        addConverter(Short.class,		new DefaultConverter(Short.class));
-        addConverter(Void.class,		new VoidConverter());
+        addConverter(CharSequence.class,	new StringConverter());
+        addConverter(Boolean.class,			new DefaultConverter(Boolean.class));
+        addConverter(Byte.class,			new DefaultConverter(Byte.class));
+        addConverter(Character.class, 		new CharacterConverter());
+        addConverter(Double.class,			new DefaultConverter(Double.class));
+        addConverter(Float.class,			new DefaultConverter(Float.class));
+        addConverter(Integer.class,			new DefaultConverter(Integer.class));
+        addConverter(Long.class,			new DefaultConverter(Long.class));
+        addConverter(Short.class,			new DefaultConverter(Short.class));
+        addConverter(Void.class,			new VoidConverter());
         
     }
 
@@ -138,6 +139,9 @@ public abstract class AbstractJSONContext implements JSONContext, JSONContextCon
     		return this.converters.get(Calendar.class);
     	}
     	else
+        if( CharSequence.class.isAssignableFrom(type) )
+    		return this.converters.get(CharSequence.class);
+        else    		
     		return this.converters.get(type);
     }
 

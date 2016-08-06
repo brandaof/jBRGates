@@ -20,7 +20,6 @@ package org.brandao.jbrgates.converters;
 import org.brandao.jbrgates.ClassType;
 import org.brandao.jbrgates.FactoryBean;
 import org.brandao.jbrgates.JSONConverter;
-import org.brandao.jbrgates.JSONEncoder;
 import org.brandao.jbrgates.JSONException;
 
 /**
@@ -37,22 +36,11 @@ public class DefaultConverter implements JSONConverter{
 	}
 	
     public StringBuffer getJsonObject(Object value) throws JSONException {
-    	return 
-			new StringBuffer(JSONEncoder.QUOTE)
-    			.append(String.valueOf(value))
-    		.append(JSONEncoder.QUOTE);
+    	return 	new StringBuffer(String.valueOf(value));
     }
 
     public Object getObject(Object value, FactoryBean factory, Class baseType) throws JSONException {
         try{
-
-        	/*
-            if( value instanceof String )
-                return String.valueOf(value);
-        	 */
-        	
-            //Class wrapper = ClassType.getWrapper( value.getClass() );
-        	
             return wrapper
                         .getMethod( "valueOf" , String.class )
                             .invoke( wrapper , value);

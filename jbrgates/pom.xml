@@ -6,8 +6,13 @@
 	<packaging>jar</packaging>
 	<version>1.1-b1</version>
 	<name>jBRGates</name>
-	<description>The JBRGates is a lightweight library that serializes objects into JSON.</description>
+	<description>The jBRGates is a lightweight library that serializes objects into JSON.</description>
 	<url>http://jbrgates.brandao.org/</url>
+
+	<organization>
+		<name>Brandao</name>
+		<url>http://www.brandao.org/</url>
+	</organization>
 
 	<licenses>
 		<license>
@@ -18,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://jbrgates.brandao.org/svn/jbrgates/trunk jbrgates-code</connection>
-		<developerConnection>scm:http://jbrgates.brandao.org/svn/jbrgates/trunk jbrgates-code</developerConnection>
-		<url>http://jbrgates.brandao.org/svn/jbrgates/trunk/</url>
+		<connection>scm:svn:http://svn.code.sf.net/p/jgates/code/trunk/jbrgates</connection>
+		<developerConnection>scm:svn:http://svn.code.sf.net/p/jgates/code/trunk/jbrgates</developerConnection>
+		<url>http://svn.code.sf.net/p/jgates/code/trunk/jbrgates</url>
 	</scm>
 
 	<distributionManagement>

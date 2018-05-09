@@ -261,77 +261,12 @@ public class JSONEncoder  implements JSONConstants{
         		encoderObject1( obj, clazz );
         	}
         }
-        /*
-        if( clazz == Class.class ){
-            innerWrite(
-                    (new StringBuffer( QUOTE ))
-                        .append( String.valueOf( ((Class)obj).getName() ) )
-                        .append( QUOTE ) );
-        }
-        else
-        if( CharSequence.class.isAssignableFrom(clazz) )
-            string( obj );
-        else
-        if( Character.class == ClassType.getWrapper( clazz ) ){
-            if( obj.equals( '\u0000' ) )
-                string( "" );
-            else
-                string( String.valueOf(obj) );
-        }
-        else
-        if( Locale.class.isAssignableFrom(clazz) )
-            string( LocaleUtils.getKey((Locale)obj) );
-        else
-        if( BigDecimal.class.isAssignableFrom(clazz) )
-            innerWrite( ((BigDecimal)obj).toString() );
-        else
-        if( BigInteger.class.isAssignableFrom(clazz) )
-            innerWrite( ((BigInteger)obj).toString() );
-        else
-        if( URI.class.isAssignableFrom(clazz) )
-            string( obj );
-        else
-        if( URL.class.isAssignableFrom(clazz) )
-            string( obj );
-        else
-        if( MappingBean.isStandardProperty( clazz ) )
-            innerWrite( 
-                    new StringBuffer(
-                        String.valueOf( obj ) ) );
-        else
-        if( Date.class.isAssignableFrom(clazz) )
-            innerWrite(
-                    new StringBuffer(
-                        String.valueOf( ((Date)obj).getTime() ) ) );
-        else
-        if( Calendar.class.isAssignableFrom(clazz) )
-            innerWrite(
-                    new StringBuffer(
-                        String.valueOf( ((Calendar)obj).getTime().getTime() ) ) );
-        else
-        if( obj instanceof Collection )
-            collectionEncoder( (Collection)obj );
-        else
-        if( clazz.isArray() )
-            arrayEncoder( obj );
-        else
-        if( clazz.isEnum() ){
-            enumEncoder( obj );
-        }
-        else
-        if( obj instanceof Map )
-            mapEncoder( (Map<Object,Object>)obj );
-        else
-            encoderObject1( obj, clazz );
-         */
     }
 
     private void encoderObject1( Object obj, Class<?> clazz ) throws IOException{
         if( cache.containsKey( obj ) ){
             StringBuffer s = cache.get( obj );
             innerWrite( s != null? s : NULL );
-            //innerWrite( s.length() == 0? NULL : s );
-            //innerWrite( NULL );
         }
         else{
             StringBuffer old = this.buffer;
@@ -350,7 +285,7 @@ public class JSONEncoder  implements JSONConstants{
         }
     }
 
-    private void encoderFields( Collection<MethodMapping> methods, Object obj ) throws IOException{
+    private void encoderFields(Collection<MethodMapping> methods, Object obj) throws IOException{
         boolean start = true;
         for( MethodMapping m: methods){
             if( start )
@@ -416,66 +351,11 @@ public class JSONEncoder  implements JSONConstants{
         }
         innerWrite( END_OBJECT );
     }
-
-    /*
-    private void enumEncoder( Object obj ) throws IOException{
-        encoderObject0( Integer.class, ((Enum)obj).ordinal() );
-    }
-
-    private void string( Object obj ) throws IOException{
-        String tmp = String.valueOf( obj );
-        StringBuffer buf = new StringBuffer();
-        innerWrite( QUOTE );
-        for( int i=0;i<tmp.length();i++ ) {
-            char ch = tmp.charAt( i );
-            switch (ch) {
-            case '\\':
-            case '"':
-            case '/':
-                buf.append( '\\' );
-                buf.append(ch);
-                break;
-            case '\b':
-                buf.append("\\b");
-                break;
-            case '\t':
-                buf.append("\\t");
-                break;
-            case '\n':
-                buf.append("\\n");
-                break;
-            case '\f':
-                buf.append("\\f");
-                break;
-            case '\r':
-                buf.append("\\r");
-                break;
-            default:
-                if( ((ch >= 0x0020) && (ch <= 0x007e))
-                    buf.append( tmp.charAt( i ) );
-                else{
-                    String hex = "000" + Integer.toHexString( ch );
-                    buf.append( "\\u")
-                            .append( hex.substring( hex.length() - 4 , hex.length() ) );
-                }
-            }
-        }
-
-        innerWrite( buf );
-        innerWrite( QUOTE );
-    }
-    */
     
     private void innerWrite( StringBuffer value ) throws IOException{
         this.buffer.append( value );
     }
 
-    /*
-    private void innerWrite( String value ) throws IOException{
-        this.buffer.append( value );
-    }
-    */
-    
     public String toString(){
         if( out instanceof ByteArrayOutputStream )
             return new String( ((ByteArrayOutputStream)out).toByteArray() );

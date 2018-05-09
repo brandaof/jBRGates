@@ -100,7 +100,7 @@ class MappingBean {
         if( isSerializable( superClass ) )
             createSerializableMapping0( mapping, superClass );
 
-        addClassType( mapping, clazz );
+        //addClassType( mapping, clazz );
         fields( mapping, clazz );
         return mapping;
     }
@@ -116,6 +116,7 @@ class MappingBean {
 
     }
 
+    @Deprecated
     private static void addClassType( MappingBean mapping, Class<?> clazz ){
         try{
             mapping.addMethod( "class" , Object.class.getDeclaredMethod( "getClass" ), null);

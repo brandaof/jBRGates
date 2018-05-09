@@ -17,6 +17,8 @@
 
 package org.brandao.jbrgates;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Type;
 
 /**
@@ -96,6 +98,50 @@ public interface JSONContext {
 	 */
     String encode(Object value) throws JSONException;
 
+	/**
+	 * Encodes an object into json.
+	 * @param value Object.
+	 * @param stream Stream.
+	 * @throws JSONException Thrown if a problem occurs when encoding.
+	 */
+    void encode(Object value, OutputStream stream) throws JSONException;
+    
+    /**
+     * Decodes a JSON object.
+     * @param stream Stream.
+     * @return Object.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    Object decode(InputStream stream) throws JSONException;
+
+    /**
+     * Decode a JSON object to specific type.
+	 * @param stream Stream.
+     * @param type Type.
+     * @return Object.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    Object decode(InputStream stream, Class<?> type) throws JSONException;
+
+    /**
+     * Decode a JSON object to specific type.
+	 * @param stream Stream.
+     * @param type Type.
+     * @return Object.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    Object decode(InputStream stream, Type type) throws JSONException;
+    
+    /**
+     * Decodes a JSON object in a specific collection type.
+	 * @param stream Stream.
+     * @param collectionType Collection type.
+     * @param entityType Entity type.
+     * @return Collection.
+     * @throws JSONException Thrown if a problem occurs when decoding.
+     */
+    Object decodeCollection(InputStream stream, Type collectionType, Type entityType) throws JSONException;
+    
     /**
      * Decodes a JSON object.
      * @param value Json object.
@@ -120,7 +166,7 @@ public interface JSONContext {
      * @return Object.
      * @throws JSONException Thrown if a problem occurs when decoding.
      */
-    Object decode( String value, Type type ) throws JSONException;
+    Object decode(String value, Type type) throws JSONException;
     
     /**
      * Decodes a JSON object in a specific collection type.
@@ -129,6 +175,5 @@ public interface JSONContext {
      * @return Collection.
      * @throws JSONException Thrown if a problem occurs when decoding.
      */
-    Object decodeCollection( String value, Type collectionType,	Type entityType) throws JSONException;
-    
+    Object decodeCollection( String value, Type collectionType,	Type entityType) throws JSONException;    
 }

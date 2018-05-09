@@ -17,6 +17,10 @@
 
 package org.brandao.jbrgates;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -27,6 +31,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+
 import org.brandao.jbrgates.converters.BigDecimalConverter;
 import org.brandao.jbrgates.converters.BigIntegerConverter;
 import org.brandao.jbrgates.converters.CalendarConverter;
@@ -52,12 +57,14 @@ public abstract class AbstractJSONContext
 	implements JSONContext, JSONContextConfiguration{
 
     private Map<Class<?>,JSONConverter> converters;
+    
     private FactoryBean factory;
+    
     private JSONConverter defaultConverter;
 
     public AbstractJSONContext(){
-        this.converters = new LinkedHashMap<Class<?>,JSONConverter>();
-        this.factory = new DefaultIOCFactoryBean();
+        this.converters       = new LinkedHashMap<Class<?>,JSONConverter>();
+        this.factory          = new DefaultIOCFactoryBean();
         this.defaultConverter = new StringConverter();
         loadConverters();
     }
@@ -97,56 +104,93 @@ public abstract class AbstractJSONContext
         
     }
 
+    /* encode */
+    
     public String encode(Object value) throws JSONException {
         try{
-            JSONEncoder encoder = new JSONEncoder();
+            JSONEncoder encoder = new JSONEncoder(new ByteArrayOutputStream(), this);
             encoder.encode(value);
             return encoder.toString();
         }
-        catch( Exception e ){
-            throw new JSONException(e);
-        }
-    }
-
-    public Object decode(String value, Class<?> type) throws JSONException {
-        try{
-            JSONDecoder encoder = new JSONDecoder(value);
-            return encoder.decode(type);
-        }
-        catch( Exception e ){
-            throw new JSONException(e);
-        }
-    }
-
-    public Object decode(String value) throws JSONException {
-        return decode(value, null);
-    }
-
-    public Object decode( String value, Type type ) throws JSONException{
-        try{
-            JSONDecoder encoder = new JSONDecoder(value);
-            return encoder.decode(type);
-        }
-        catch( Exception e ){
+        catch(Exception e){
             throw new JSONException(e);
         }
     }
     
-    public Object decodeCollection( String value, Type collectionType,
-    		Type entityType) throws JSONException{
+	public void encode(Object value, OutputStream stream)
+			throws JSONException {
         try{
-            JSONDecoder encoder = new JSONDecoder(value);
+            JSONEncoder encoder = new JSONEncoder(stream, this);
+            encoder.encode(value);
+        }
+        catch( Exception e ){
+            throw new JSONException(e);
+        }
+	}
+    
+    /* decode */
+	
+    public Object decode(String value, Class<?> type) throws JSONException {
+        return decode(value, (Type)type);
+    }
+
+    public Object decode(String value) throws JSONException {
+        return decode(value, (Type)null);
+    }
+
+    public Object decode(String value, Type type) throws JSONException{
+    	return 
+			value == null? 
+				null : 
+				this.decode(new ByteArrayInputStream(value.getBytes()), type);
+    }
+    
+    public Object decodeCollection(String value, Type collectionType,
+    		Type entityType) throws JSONException{
+    	return 
+			value == null? 
+				null : 
+				this.decodeCollection(
+					new ByteArrayInputStream(value.getBytes()), 
+					collectionType, entityType);
+    }
+    
+    /* decode stream */
+    
+	public Object decode(InputStream stream) throws JSONException {
+		return this.decode(stream, (Type)null);
+	}
+
+	public Object decode(InputStream stream, Class<?> type)
+			throws JSONException {
+		return this.decode(stream, (Type)type);
+	}
+
+	public Object decode(InputStream stream, Type type) throws JSONException {
+        try{
+            JSONDecoder encoder = new JSONDecoder(stream, this.factory, this);
+            return encoder.decode(type);
+        }
+        catch( Exception e ){
+            throw new JSONException(e);
+        }
+	}
+
+	public Object decodeCollection(InputStream stream, Type collectionType,
+			Type entityType) throws JSONException {
+        try{
+            JSONDecoder encoder = new JSONDecoder(stream, this.factory, this);
             return encoder.decodeCollection(collectionType, entityType);
         }
         catch( Exception e ){
             throw new JSONException(e);
         }
-    }
-    
+	}
+
     public void addConverter(Class<?> type, JSONConverter converter) {
         this.converters.put(type, converter);
     }
-
+	
     public JSONConverter getConverter(Class<?> type) {
     	
     	if(type == null){

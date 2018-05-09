@@ -212,7 +212,7 @@ public class JSONDecoder implements JSONConstants{
 	public <T> T decode( Class<T> type ) throws JSONException{
         try{
             JSONParsing parsing = new JSONParsing( in );
-            return (T) decoder0( parsing.object( type ), type );
+            return parsing.isEmpty()? null : (T) decoder0( parsing.object( type ), type );
         }
         catch( JSONException e ){
             throw e;
@@ -232,7 +232,7 @@ public class JSONDecoder implements JSONConstants{
         try{
             Class<?> clazz = getClass( type );
             JSONParsing parsing = new JSONParsing( in );
-            return decoder0( parsing.object( clazz ), type );
+            return parsing.isEmpty()? null : decoder0( parsing.object( clazz ), type );
         }
         catch( JSONException e ){
             throw e;
@@ -376,6 +376,11 @@ public class JSONDecoder implements JSONConstants{
         else{
             Map<?,?> values = (Map<?,?>)data;
             Class<?> classType = getClass( (Map<?,?>)values, clazz );
+            
+            if(classType == null){
+            	return values;
+            }
+            
             MappingBean mb = MappingBean.getMapping( getClass( classType ) );
             Object instance = factory.getInstance( classType );
 
@@ -395,16 +400,24 @@ public class JSONDecoder implements JSONConstants{
     }
 
     private Class<?> getClass( Map<?,?> mappedObj, Type classType ) throws ClassNotFoundException{
+    	/*
         if( classType == null ){
             String clazzName = (String) mappedObj.get( "class" );
-            if( clazzName == null )
-                throw new JSONException( "undetermined class: not found \"class\"" );
-            else
+            if( clazzName != null ){
                 return Class.forName( clazzName, true,
                         Thread.currentThread().getContextClassLoader() );
+            }
+            else
+            	return null;
         }
         else
+        */
+    	if(classType != null){
             return getClass( classType );
+    	}
+    	else{
+    		return null;
+    	}
     }
 
     private Object toValue( String value, Type type ){

@@ -32,11 +32,18 @@ import java.util.Map;
 class JSONParsing implements JSONConstants{
 
     private InputStream in;
+    
     private StringBuffer buffer;
-    int read = 0;
+    
+    private int read = 0;
+    
+    public JSONParsing(){
+    	this.read = 0;
+    }
     
     public JSONParsing( InputStream in ) throws JSONException{
         try{
+        	this.read = 0;
             this.in = in;
             this.buffer = new StringBuffer();
             this.read();
@@ -46,6 +53,10 @@ class JSONParsing implements JSONConstants{
         }
     }
 
+    public boolean isEmpty(){
+    	return read >= buffer.length();
+    }
+    
     private void read() throws IOException{
         int l;
         byte[] buf = new byte[2048];
@@ -349,7 +360,16 @@ class JSONParsing implements JSONConstants{
         List<Object> obj = new ArrayList<Object>();
 
         if( START_ARRAY_STR == next(true) ){
-                Object value = value( clazz );
+        		char endArray = next(true);
+        		
+        		if(endArray == END_ARRAY_STR){
+        			return null;
+        		}
+        		else{
+        			back();
+        		}
+        		
+                Object value = value(clazz);
                 obj.add( value );
                 while( SEPARATOR_STR == next(true) ){
                     value = value( clazz );

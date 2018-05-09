@@ -6,8 +6,8 @@
 	<packaging>jar</packaging>
 	<version>1.1-b1</version>
 	<name>jBRGates</name>
-	<description>The jBRGates is a lightweight library that serializes objects into JSON.</description>
 	<url>http://jbrgates.brandao.org/</url>
+	<description>The jBRGates is a lightweight library for serializing beans, maps, collections, arrays and Enum to Json and back again to beans.</description>
 
 	<organization>
 		<name>Brandao</name>
@@ -126,7 +126,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

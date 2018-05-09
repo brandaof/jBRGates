@@ -23,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://svn.code.sf.net/p/jgates/code/trunk/jbrgates</connection>
-		<developerConnection>scm:svn:http://svn.code.sf.net/p/jgates/code/trunk/jbrgates</developerConnection>
-		<url>http://svn.code.sf.net/p/jgates/code/trunk/jbrgates</url>
+		<connection>scm:git:https://github.com/brandaof/jBRGates</connection>
+		<developerConnection>scm:git:https://github.com/brandaof/jBRGates</developerConnection>
+		<url>https://github.com/brandaof/jBRGates</url>
 	</scm>
 
 	<distributionManagement>

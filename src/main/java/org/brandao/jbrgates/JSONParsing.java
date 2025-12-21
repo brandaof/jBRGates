@@ -326,10 +326,10 @@ class JSONParsing implements JSONConstants{
         back();
         
         if( TRUE.indexOf( String.valueOf( result ) ) != -1 )
-            return TRUE;
+            return Boolean.TRUE;
         else
         if( FALSE.indexOf( String.valueOf( result ) ) != -1 )
-            return FALSE;
+            return Boolean.FALSE;
         else
             throwJSON( "expected at position $lin : true or false", null );return null;
 

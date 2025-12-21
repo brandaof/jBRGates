@@ -170,6 +170,7 @@ public interface JSONContext {
     
     /**
      * Decodes a JSON object in a specific collection type.
+     * @param value Value.
      * @param collectionType Collection type.
      * @param entityType Entity type.
      * @return Collection.
